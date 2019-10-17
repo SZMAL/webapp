@@ -1,0 +1,121 @@
+﻿<!doctype html>
+<html lang="pl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SZMAL company</title>
+    <meta name="description" content="SZMAL">
+    <meta name="author" content="FilipW">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="img/icon.png">
+    <script src="js/scripts.js"></script>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="header">
+            <div id="company-name">
+                SZMAL
+            </div>
+        </div>
+        <div id="login">
+            <button type="button" class="login-button" onclick="showRegisterPopup()">Rejestracja</button>
+            <button type="button" class="login-button" onclick="showLoginPopup()">Logowanie</button>
+            <button type="button" class="login-button">Gość</button>
+        </div>
+        <div id="content">
+            <div id="box-left">
+                <img src="img/logo2.png" />
+                <div id="motto">
+                    Od ludzi dla ludzi. Bądź zawsze na bieżąco. Nie daj się zaskoczyć.
+                </div>
+            </div>
+            <div id="box-right">
+                <div id="description">
+                    <p>
+                        Awarie są powszechne i najczęściej zdarzają się niespodziewanie.
+                        Informacje o nich, przekazane w odpowiednim <b>czasie</b>, mogą <b>zaoszczędzić</b> ludziom sporo <b>czasu, pieniędzy i nerwów.</b>
+                    </p>
+                    <p>
+                        Dlatego też, powstał <b>SZMAL - System Zaawansowanego Monitorowania i Alarmowania Ludności</b>, aby ujednlicić sposób informowania o tego typu zdarzeniach.
+                    </p>
+                    <p>
+                        <b>Współpracujemy</b> z przedsiębiorstwami transportowymi, przedsiębiorcami usług publicznych, administracją lokalną oraz służbami państwowymi.
+                        Awarie są w obszarze zainteresowań ww. instytucji dotyczą: infrastruktury: transportowej, wodno-kanalizacyjnej, energetycznej i innej tzw. „miejskiej”.
+                        Zgłoszenia są <b>uwierzytelniane</b> u źródła informacji i <b>dokumentowane</b> na podstawie zdjęć, nagrań lub innych dokumentów, więc <b>gwarantujemy</b> wiarygodność zgłoszeń.
+                    </p>
+                </div>
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+    <div id="footer">
+        <span id="rights">
+            SZMAL Company®, All Rights Reserved
+        </span>
+        <button type="button" class="footer-button" onclick="showAboutPopup()">O nas</button>
+        <button type="button" class="footer-button" id="facebook" onclick=openFacebook()>Facebook</button>
+    </div>
+
+    <div id="register-wrapper" class="modal">
+        <form class="modal-content animate" action="" id="register-form">
+            <div id="register-container">
+                <div id="register-now">
+                    Zarejestruj się już teraz
+                </div>
+                <input type="text" placeholder="Nazwa użytkownika" name="registerUsername" class="input-box">
+                <input type="text" placeholder="E-mail" name="registerEmail" class="input-box">
+                <input type="password" placeholder="Hasło" name="registerPassword" class="input-box">
+                <button type="submit" class="submit-button">Zarejestruj</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="login-wrapper" class="modal">
+        <form class="modal-content animate" action="" id="login-form">
+            <div id="login-container">
+                <div id="register-now">
+                    Zaloguj się już teraz
+                </div>
+                <input type="text" placeholder="Nazwa użytkownika" name="loginUsername" class="input-box">
+                <input type="password" placeholder="Hasło" name="loginPassword" class="input-box">
+                <button type="submit" class="submit-button">Zaloguj</button>
+            </div>
+        </form>
+    </div>
+
+    <div id="about-wrapper" class="modal">
+        <div id="about-container" class="modal-content animate">
+            <div id="register-now">
+                O nas
+            </div>
+            <div id="about">
+                Projekt SZMAL realizowany jest przez grupę pasjonatów:
+                <div class="person">- Radosław Kister - Database Designer</div>
+                <div class="person">- Bartosz Konecki - Software Engeneer</div>
+                <div class="person">- Elwira Socha - Business Designer</div>
+                <div class="person">- Rafał Twarowski - UX Designer</div>
+                <div class="person">- Filip Woźniak - Web Content Developer</div>
+                SZMAL jest w cały czas rozwijany, wciąż w wersji roboczej (pre-alpha).<br/>
+                Projekt finansowany z własnych środków.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var modalRegister = document.getElementById('register-wrapper');
+        var modalLogin = document.getElementById('login-wrapper');
+        var modalAbout = document.getElementById('about-wrapper');
+        window.onclick = function (event) {
+            if (event.target == modalRegister) {
+                modalRegister.style.display = "none";
+            }
+            else if (event.target == modalLogin) {
+                modalLogin.style.display = "none";
+            }
+            else if (event.target == modalAbout) {
+                modalAbout.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
