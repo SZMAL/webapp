@@ -16,8 +16,7 @@ namespace SZMALAPP.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(uzytkownik objUser)
+        public ActionResult LoginUser(uzytkownik objUser)
         {
             if (ModelState.IsValid)
             {
@@ -33,6 +32,26 @@ namespace SZMALAPP.Controllers
             }
             return View(objUser);
         }
+
+
+        [HttpPost]
+        public ActionResult RegisterUser(uzytkownik objUser)
+        {
+            if (ModelState.IsValid)
+            {
+                using (szmaldbEntities db = new szmaldbEntities())
+                {
+                    var obj = db.uzytkowniks.Where(a => a.imie.Equals(objUser.login) && a.haslo.Equals(objUser.haslo)).FirstOrDefault();
+                    if (obj == null)
+                    {
+                        db.uzytkowniks.Add(objUser);
+                        db.SaveChanges();
+                    }
+                }
+            }
+            return View(objUser);
+        }
+
 
         public ActionResult UserDashBoard()
         {

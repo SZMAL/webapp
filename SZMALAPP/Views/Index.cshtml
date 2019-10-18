@@ -2,23 +2,8 @@
 
 @{
     ViewBag.Title = "Login";
-}
 
 
-@using (Html.BeginForm("Index", "Views", FormMethod.Post))
-{
-    <fieldset>
-        <legend>Mvc Simple Login Application Demo</legend>
-
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
-        @if (@ViewBag.Message != null)
-        {
-            <div style="border: 1px solid red">
-                @ViewBag.Message
-            </div>
-        }
-    </fieldset>
 
 
     <body>
@@ -35,7 +20,7 @@
             </div>
             <div id="content">
                 <div id="box-left">
-                    <img src="img/logo2.png" />
+                    <img src="~/Content/img/logo2.png" />
                     <div id="motto">
                         Od ludzi dla ludzi. Bądź zawsze na bieżąco. Nie daj się zaskoczyć.
                     </div>
@@ -68,31 +53,35 @@
         </div>
 
         <div id="register-wrapper" class="modal">
-            <form class="modal-content animate" action="" id="register-form">
+            @using (Html.BeginForm("RegisterUser", "Login", FormMethod.Post, new { @class = "modal-content animate" }))
+            { 
                 <div id="register-container">
                     <div id="register-now">
                         Zarejestruj się już teraz
                     </div>
-                    <input type="text" placeholder="Nazwa użytkownika" name="registerUsername" class="input-box">
-                    <input type="text" placeholder="E-mail" name="registerEmail" class="input-box">
-                    <input type="password" placeholder="Hasło" name="registerPassword" class="input-box">
+                    @Html.TextBoxFor(a => a.login, new { @class = "input-box" })
+                    @Html.TextBoxFor(a => a.email, new { @class = "input-box" })
+                    @Html.TextBoxFor(a => a.haslo, new { @class = "input-box", @type = "password" })
                     <button type="submit" class="submit-button">Zarejestruj</button>
                 </div>
-            </form>
+            }
         </div>
 
         <div id="login-wrapper" class="modal">
-            <form class="modal-content animate" action="" id="login-form">
+            @using (Html.BeginForm("LoginUser", "Login", FormMethod.Post, new { @class = "modal-content animate" }))
+            {
                 <div id="login-container">
                     <div id="register-now">
                         Zaloguj się już teraz
                     </div>
+
                     @Html.TextBoxFor(a => a.login, new { @class = "input-box" })
-                    @Html.TextBoxFor(a => a.haslo, new { @class = "input-box" })
-                    
+                    @Html.TextBoxFor(a => a.haslo, new { @class = "input-box", @type="password" })
+
                     <input type="submit" value="Zaloguj" class="submit-button"/>
+                 
                 </div>
-            </form>
+            }
         </div>
 
         <div id="about-wrapper" class="modal">
@@ -130,5 +119,6 @@
             }
         </script>
     </body>
+
 
 }
