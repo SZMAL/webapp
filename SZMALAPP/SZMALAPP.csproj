@@ -118,6 +118,7 @@
     <Content Include="Content\dashboard-styles.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
     <Content Include="Views\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\img\icon.png" />
