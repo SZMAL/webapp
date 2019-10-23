@@ -4,9 +4,11 @@
 }
 
 html, body {
-  height: 100%;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #595959;
+    color: white;
 }
 
 body {
@@ -89,7 +91,7 @@ body {
 	text-decoration: none;
 	outline: none;
 	color: #fff;
-	background-color: rgb(100, 100, 100);
+	background-color: rgb(145, 145, 145);
 	border: none;
 	border-radius: 15px;
 	margin-left: 20px;
@@ -99,19 +101,19 @@ body {
 
 .login-button:hover{
 	font-weight: bold;
-	background-color: rgb(22, 120, 22);
+	background-color: rgb(121, 121, 121);
 	border-radius: 15px;
-	box-shadow: 0 5px rgb(22, 200, 22);
+	box-shadow: 0 5px rgb(22, 66, 22);
 	color: rgb(200, 240, 200);
 }
 
 #footer {
     flex-shrink: 0;
-	height: 40px;
-	background-color: rgb(122, 122, 122);
-	padding: 5px;
-	text-align: center;
-	opacity: 0.75;
+    height: 40px;
+    background-color: rgb(33, 33, 44);
+    padding: 5px;
+    text-align: center;
+    opacity: 0.75;
 }
 
 #rights {
@@ -147,6 +149,7 @@ body {
 #register-now {
 	padding: 25px;
 	font-size: 60px;
+    color: black;
 	font-family: Impact, fantasy;
 	font-style: normal;
 	font-weight: 500;

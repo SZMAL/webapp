@@ -1,26 +1,72 @@
-﻿<!DOCTYPE html>
-<html>
+﻿<!doctype html>
+<html lang="pl">
 <head>
-    <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>SZMAL company</title>
-    <meta name="description" content="SZMAL">
+    <title>SZMAL</title>
+    <meta name="description" content="dashboard">
     <meta name="author" content="FilipW">
-    <link rel="stylesheet" href="~/Content/styles.css">
-    <link rel="icon" href="~/Content/img/icon.png">
-    <script src="~/Scripts/scripts.js"></script>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/dashboard-styles.css">
+    @Scripts.Render("~/Scripts/scripts.js")
 </head>
+
 <body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="company-name">
+                SZMAL
+            </div>
+            <div class="welcome-your-name">
+                Witaj Imię!
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="nav">
+            <ol>
+                <li><a href="#">Dodaj</a></li>
+                <li>
+                    <a href="#">Przeglądaj</a>
+                    <ul>
+                        <li><a href="#">Aktualne</a></li>
+                        <li><a href="#">Poczekalnia</a></li>
+                        <li><a href="#">Twoje</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Ustawienia</a>
 
-
-
-        @RenderBody()
-
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+                </li>
+                <li>
+                    <a href="#">Statystyki</a>
+                    <ul>
+                        <li><a href="#">Twoje</a></li>
+                        <li><a href="#">Serwisu</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Administracja</a>
+                    <ul>
+                        <li><a href="#">Poczekalnia</a></li>
+                        <li><a href="#">Odrzucone</a></li>
+                        <li><a href="#">Zaufani</a></li>
+                        <li><a href="#">Użytkownicy</a></li>
+                        <li><a href="#">Ustawienia</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">O autorach</a></li>
+            </ol>
+        </div>
+        <div class="content">
+            <!--
+                Tu będzie zawartość strony    
+            -->
+            @RenderBody();
+        </div>
+    </div>
+    <div class="footer">
+        <span class="rights">
+            SZMAL Company®, All Rights Reserved
+        </span>
+        <button type="button" class="footer-button facebook">Facebook</button>
+    </div>
 </body>
 </html>

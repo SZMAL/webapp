@@ -1,0 +1,169 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #595959;
+  color: white;
+}
+
+.wrapper {
+	min-height: calc(100vh - 50px);
+}
+
+.header {
+	background-image: url(https://ssl.gstatic.com/atari/images/impression-header.png);
+	background-size: cover;
+	text-align: center;
+}
+
+.company-name {
+	padding: 30px;
+	text-align: left;
+	color: white;
+	font-size: 60px;
+	font-family: Script;
+	font-style: normal;
+	font-weight: 500;
+	text-decoration: underline;
+	text-decoration-color: rgb(200, 25, 55);
+	text-decoration-style: solid;
+	float: left;
+	width: 60%;
+}
+
+.welcome-your-name {
+	color: white;
+	font-weight: bold;
+	font-family: "Trebuchet MS", Helvetica, sans-serif;
+	font-size: 40px;
+	float: left;
+	width: 30%;
+	padding: 30px;
+}
+
+.nav
+{ 
+	width: 100%;
+	padding-bottom: 10px;
+	background-color: #e46767;
+	text-align: center;
+	border-top: 8px solid rgb(200, 25, 55);
+	border-bottom: 2px solid rgb(200, 25, 55);
+	clear: both;
+}
+
+
+
+.footer {
+    flex-shrink: 0;
+    height: 40px;
+    background-color: rgb(33, 33, 44);
+    padding: 5px;
+    text-align: center;
+    opacity: 0.75;
+}
+
+.rights {
+	margin: 0;
+	padding: 0;
+	color: white;
+}
+
+.footer-button {
+	font-weight: bold;
+	display: inline-block;
+	padding: 5px 25px;
+	font-size: 20px;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	outline: none;
+	margin-left: 25px;
+	margin-right: 25px;
+	width: 200px;
+}
+
+.facebook {
+	background-color: #3b5998;
+	color: white;
+}
+
+.facebook:hover {
+	background-color: white;
+	color: #3b5998;
+}
+
+ol
+{
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+	font-size: 18px;
+	height: 35px;
+	line-height: 200%;
+	display: inline-block;
+}
+
+ol a
+{
+	color: #ffffff;
+	text-decoration: none;
+	display: block;
+}
+
+ol > li
+{
+	float: left;
+	width: 150px;
+	height: 40px;
+	border-right: 1px dashed rgb(200, 25, 55);
+}
+
+ol > li:first-child
+{
+	border-left: 1px dashed #751b1b;
+}
+
+ol > li:hover
+{
+	background-color: #e05252;
+	border-bottom: 10px solid rgb(200, 25, 55);
+}
+
+ol > li:hover > a
+{
+	font-weight: bold;
+}
+
+ol > li > ul
+{
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	height: 40px;
+	display: none;
+}
+
+ol > li:hover > ul
+{
+	display: block;
+}
+
+ol > li > ul > li
+{
+	background-color: #e05252;
+	position: relative;
+	z-index: 100;
+	border-top: 1px dashed #751b1b;
+}
+
+ol > li > ul > li:hover
+{
+	background-color: #dd3c3c;
+}
+
+ol > li > ul > li:hover > a
+{
+	color: white;
+	font-weight: 900;
+}
