@@ -14,7 +14,7 @@ namespace SZMALAPP.Controllers
 {
     public class LoginController : Controller
     {
-        // GET: Login
+        // GET: Logins
         public ActionResult Index()
         {
             return View("~/Views/Index.cshtml");
