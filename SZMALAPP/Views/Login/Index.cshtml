@@ -9,19 +9,23 @@
 
 
 
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>SZMAL company</title>
-        <meta name="description" content="SZMAL">
-        <meta name="author" content="FilipW">
-        <link rel="icon" href="~/Content/img/icon.png">
-        <link rel="stylesheet" href="~/Content/styles.css" />
-
-        @Scripts.Render("~/Scripts/scripts.js")
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SZMAL company</title>
+    <meta name="description" content="SZMAL">
+    <meta name="author" content="FilipW">
+    <link rel="icon" href="~/Content/img/icon.png">
+    <link rel="stylesheet" href="~/Content/styles.css" />
+    
+    
+    @Scripts.Render("~/Scripts/scripts.js")
+</head>
 
     <body>
+        <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=initMap">
+    </script>
         <div id="wrapper">
             <div id="header">
                 <div id="company-name">
@@ -41,20 +45,10 @@
                     </div>
                 </div>
                 <div id="box-right">
-                    <div id="description">
-                        <p>
-                            Awarie są powszechne i najczęściej zdarzają się niespodziewanie.
-                            Informacje o nich, przekazane w odpowiednim <b>czasie</b>, mogą <b>zaoszczędzić</b> ludziom sporo <b>czasu, pieniędzy i nerwów.</b>
-                        </p>
-                        <p>
-                            Dlatego też, powstał <b>SZMAL - System Zaawansowanego Monitorowania i Alarmowania Ludności</b>, aby ujednlicić sposób informowania o tego typu zdarzeniach.
-                        </p>
-                        <p>
-                            <b>Współpracujemy</b> z przedsiębiorstwami transportowymi, przedsiębiorcami usług publicznych, administracją lokalną oraz służbami państwowymi.
-                            Awarie są w obszarze zainteresowań ww. instytucji dotyczą: infrastruktury: transportowej, wodno-kanalizacyjnej, energetycznej i innej tzw. „miejskiej”.
-                            Zgłoszenia są <b>uwierzytelniane</b> u źródła informacji i <b>dokumentowane</b> na podstawie zdjęć, nagrań lub innych dokumentów, więc <b>gwarantujemy</b> wiarygodność zgłoszeń.
-                        </p>
-                    </div>
+                        <div id="map">
+
+
+                        </div>
                 </div>
                 <div style="clear: both;"></div>
             </div>
@@ -142,6 +136,7 @@
         </div>
 
         <script>
+            window.onload = getLocation();
             var modalRegister = document.getElementById('register-wrapper');
             var modalLogin = document.getElementById('login-wrapper');
             var modalAbout = document.getElementById('about-wrapper');

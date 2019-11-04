@@ -76,7 +76,9 @@ body {
 	min-height: 303px;
 }
 
-#description {
+#map {
+    height: 400px;
+    width: 100%;
     font-size: 25px;
     text-align: justify;
     text-justify: inter-word;

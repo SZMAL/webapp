@@ -197,8 +197,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FilterConfig2.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -282,6 +285,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Admin\" />
+    <Folder Include="Views\GPS\" />
     <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
