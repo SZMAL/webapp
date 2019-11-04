@@ -27,7 +27,7 @@ namespace SZMALAPP.Controllers
         {
             using (szmaldbEntities db = new szmaldbEntities())
             {
-                var obj = db.uzytkowniks.Where(a => a.imie.Equals(objUser.Login) && a.haslo.Equals(objUser.Password)).FirstOrDefault();
+                var obj = db.uzytkowniks.Where(a => a.login.Equals(objUser.Login) && a.haslo.Equals(objUser.Password)).FirstOrDefault();
 
                 if (obj == null)
                 {
@@ -35,14 +35,14 @@ namespace SZMALAPP.Controllers
                     ModelState.AddModelError("Login", "Niepoprawna nazwa użytkownika lub hasło");
                     ModelState.AddModelError("Password", "");
                     ViewResult result= View("~/Views/Index.cshtml", objUser);
-                    
-                    return Json(false);
+
+                    return result;
                 }
 
-                if (ModelState.IsValid)
+               else if (ModelState.IsValid)
                 {
                    Session["UserID"] = obj.login.ToString();
-                   return RedirectToAction("UserDashBoard");
+                   return View("~/Views/Home/Yours.cshtml", obj);
                 }
             
             return View(this);
@@ -57,8 +57,8 @@ namespace SZMALAPP.Controllers
             using (szmaldbEntities db = new szmaldbEntities())
             {
                if( db.uzytkowniks.Any(u=>u.login==Login))
-                    return Json(true);
-               else return Json(false);
+                    return Json(false);
+               else return Json(true);
             }
                 
 
@@ -72,14 +72,17 @@ namespace SZMALAPP.Controllers
             using (szmaldbEntities db = new szmaldbEntities())
             {
                 if (db.uzytkowniks.Any(u => u.login == user.Login && u.haslo == user.Password))
-                    return Json(true);
+                {
+                    Session["UserID"] = user.Login.ToString();
+                    return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.Login));
+                }
                 else
                 {
                     ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
-                   
-                    var view= View("~/Views/Index.cshtml", user);
+
+                    var view = View("~/Views/Index.cshtml", user);
                     view.ViewData.ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
-                    return PartialView("Index",user);
+                    return PartialView("Index", user);
                 }
             }
 
@@ -97,13 +100,17 @@ namespace SZMALAPP.Controllers
                     var obj = db.uzytkowniks.Where(a => a.imie.Equals(objUser.Login) && a.haslo.Equals(objUser.Password)).FirstOrDefault();
                     if (obj == null)
                     {
-                        db.uzytkowniks.Add(new uzytkownik());
+                        uzytkownik u = new uzytkownik();
+                        u.login = objUser.Login;
+                        u.haslo = objUser.Password;
+                        u.email = objUser.Email;
+                        db.uzytkowniks.Add(u);
                         db.SaveChanges();
                     }
                 }
             }
             else return PartialView("Index", objUser);
-            return View(objUser);
+            return View("~/Views/Index.cshtml");
         }
 
 

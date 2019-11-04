@@ -8,6 +8,7 @@ namespace SZMALAPP.Models
     public class UserLoginModel
     {
         [Required(ErrorMessage ="Pole nie może być puste")]
+       // [Remote("UserExists","Login",HttpMethod ="POST",ErrorMessage ="Ten login jest już używany")]
         public string Login { get; set; }
 
         [Required(ErrorMessage = "Pole nie może być puste")]
