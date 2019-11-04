@@ -6,6 +6,7 @@ function showLoginPopup() {
 	document.getElementById('login-wrapper').style.display='block'
 }
 
+
 function showAboutPopup() {
     document.getElementById('about-wrapper').style.display = 'block'
 }

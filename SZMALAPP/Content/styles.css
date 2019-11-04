@@ -169,7 +169,7 @@ body {
 .input-box {
     width: 90%;
     padding: 12px 20px;
-    margin: 8px 26px;
+    margin: 12px 26px;
     display: inline-block;
     border: 1px solid #ccc;
     box-sizing: border-box;
@@ -204,7 +204,26 @@ body {
     text-align: center;
 }
 
-.modal-content {
+.nonmodal {
+    display: block;
+    position: relative;
+    
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    text-align: center;
+}
+
+.login-wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+}
+    .modal-content {
     background-color: #fefefe;
     margin: 4% auto 15% auto;
     border: 1px solid #888;
@@ -223,6 +242,13 @@ body {
 .close:hover,.close:focus {
     color: red;
     cursor: pointer;
+}
+
+.text-danger{
+
+    font-size:40px;
+    font-style:normal;
+    color:red;
 }
 
 .animate {
