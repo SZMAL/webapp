@@ -1,8 +1,37 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Add";
     Layout = "~/Views/Home/_Layout.cshtml";
 }
 
-<h2>Add</h2>
 
+<div class="main-container">
+    <div class="content-title">
+        Dodaj zgłoszenie
+    </div>
+    <div class="add-form">
+        <input type="text" placeholder="Tytuł zgłoszenia" class="form-title" /><br />
+        <label class="radio-container">
+            Transportowa
+            <input type="radio" checked="checked" name="type" value="Transportowa">
+            <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">
+            Wodno-Kanalizacyjna
+            <input type="radio" name="type" value="Wodno-Kanalizacyjna">
+            <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">
+            Energetycznaa
+            <input type="radio" name="type" value="Energetyczna">
+            <span class="checkmark"></span>
+        </label>
+        <label class="radio-container">
+            Inna
+            <input type="radio" name="type" value="Inna">
+            <span class="checkmark"></span>
+        </label>
+
+        <textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />
+        <input type="file" value="Prze"/>
+    </div>
+</div>

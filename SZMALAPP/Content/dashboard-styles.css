@@ -177,3 +177,102 @@ ol > li > ul > li:hover > a
 	color: white;
 	font-weight: 900;
 }
+
+.main-container
+{
+    margin: 0px;
+}
+
+.content-title
+{
+    width: 100%;
+    font-size: 56px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.add-form
+{
+    margin-left: 25%;
+    width: 50%;
+    text-align: center;
+    font-size: 24px;
+}
+
+.form-title
+{
+    width: 800px;
+    height: 50px;
+    font-size: 32px;
+    text-align: center;
+    color: black;
+    margin: 10px;
+}
+
+.form-desc
+{
+    font-size: 18px;
+    padding: 10px;
+    resize: none;
+}
+
+.radio-container 
+{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    margin-left: 10%;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-align: left;
+}
+
+.radio-container input 
+{
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+.radio-container:hover input ~ .checkmark {
+    background-color: #ccc;
+}
+
+.radio-container input:checked ~ .checkmark {
+    background-color: #2196F3;
+}
+
+.radio-container:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-container input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.radio-container .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}

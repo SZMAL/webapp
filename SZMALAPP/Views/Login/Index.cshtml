@@ -17,8 +17,8 @@
     <meta name="author" content="FilipW">
     <link rel="icon" href="~/Content/img/icon.png">
     <link rel="stylesheet" href="~/Content/styles.css" />
-    
-    
+
+
     @Scripts.Render("~/Scripts/scripts.js")
 </head>
 
@@ -136,7 +136,7 @@
         </div>
 
         <script>
-            window.onload = getLocation();
+            
             var modalRegister = document.getElementById('register-wrapper');
             var modalLogin = document.getElementById('login-wrapper');
             var modalAbout = document.getElementById('about-wrapper');
@@ -151,6 +151,7 @@
                     modalAbout.style.display = "none";
                 }
             }
+            window.onload = getLocation();
         </script>
     </body>
 
