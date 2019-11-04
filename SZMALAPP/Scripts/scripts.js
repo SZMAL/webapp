@@ -47,8 +47,37 @@ function showPosition(position) {
 
     // Ustawiamy punkt centralny mapy na nasz¹ obecn¹ lokalizacjê
     var map = new google.maps.Map(
-        document.getElementById('map'), { zoom: 14, center: centerLocation });
-
+        document.getElementById('map'), { zoom: 14, center: centerLocation, mapTypeControl: false });
+    var southWest = new google.maps.LatLng(52.242399, 20.874975);
+    var northEast = new google.maps.LatLng(52.258082, 20.912744);
+    var lngSpan = northEast.lng() - southWest.lng();
+    var latSpan = northEast.lat() - southWest.lat();
     // Oznaczamy nasz punkt za pomoc¹ markera
-    var marker = new google.maps.Marker({ position: centerLocation, map: map });
+    var iconBase = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+    for (var i = 1; i < 5; i++) {
+        // init markers
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(southWest.lat() + latSpan * Math.random(), southWest.lng() + lngSpan * Math.random()),
+            map: map,
+            title: 'Click Me ' + i,
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        });
+
+        // process multiple info windows
+        (function (marker, i) {
+            // add click event
+            google.maps.event.addListener(marker, 'click', function () {
+             
+                infowindow = new google.maps.InfoWindow({
+                    content: 'Bartek chuj!!!',
+                    
+                });
+               
+                infowindow.open(map, marker);
+            });
+        })(marker, i);
+    }
+
+    //var marker = new google.maps.Marker({ position: centerLocation, map: map });
+    
 }
