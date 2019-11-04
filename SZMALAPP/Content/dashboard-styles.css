@@ -52,7 +52,9 @@ html, body {
 	clear: both;
 }
 
-
+.content {
+    padding: 30px;
+}
 
 .footer {
     flex-shrink: 0;

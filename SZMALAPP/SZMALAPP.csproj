@@ -198,6 +198,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -244,6 +246,31 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Home\_Layout.cshtml" />
+    <Content Include="Views\Home\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Add.cshtml" />
+    <Content Include="Views\Home\Actual.cshtml" />
+    <Content Include="Views\Home\Pending.cshtml" />
+    <Content Include="Views\Home\Yours.cshtml" />
+    <Content Include="Views\Home\Settings.cshtml" />
+    <Content Include="Views\Home\YoursStats.cshtml" />
+    <Content Include="Views\Home\ServiceStats.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\AdminHome\_Layout.cshtml" />
+    <Content Include="Views\AdminHome\_ViewStart.cshtml" />
+    <Content Include="Views\AdminHome\About.cshtml" />
+    <Content Include="Views\AdminHome\Actual.cshtml" />
+    <Content Include="Views\AdminHome\Add.cshtml" />
+    <Content Include="Views\AdminHome\Pending.cshtml" />
+    <Content Include="Views\AdminHome\ServiceStats.cshtml" />
+    <Content Include="Views\AdminHome\Settings.cshtml" />
+    <Content Include="Views\AdminHome\Yours.cshtml" />
+    <Content Include="Views\AdminHome\YoursStats.cshtml" />
+    <Content Include="Views\AdminHome\AdminPending.cshtml" />
+    <Content Include="Views\AdminHome\AdminRejected.cshtml" />
+    <Content Include="Views\AdminHome\AdminTrust.cshtml" />
+    <Content Include="Views\AdminHome\AdminUsers.cshtml" />
+    <Content Include="Views\AdminHome\AdminSettings.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -253,6 +280,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Admin\" />
+    <Folder Include="Views\Test\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
