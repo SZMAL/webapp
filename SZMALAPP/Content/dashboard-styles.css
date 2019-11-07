@@ -329,7 +329,7 @@ ol > li > ul > li:hover > a
 
 .left-box-item {
     width: calc(100% - 26px);
-    height: 100px;
+    min-height: 120px;
     background-color: #9a9a9a;
     border: 5px solid #212121;
     margin-bottom: 1px;
