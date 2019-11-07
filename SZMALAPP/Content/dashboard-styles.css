@@ -313,3 +313,147 @@ ol > li > ul > li:hover > a
     border: 5px solid black;
     cursor: pointer;
 }
+
+.left-box-view 
+{
+    width: calc(20% - 10px);
+    height: calc(60vh - 10px);
+    background-color: white;
+    float: left;
+    margin-left: 8%;
+    margin-right: 2%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 5px solid black;
+}
+
+.left-box-item {
+    width: calc(100% - 26px);
+    height: 100px;
+    background-color: #9a9a9a;
+    border: 5px solid #212121;
+    margin-bottom: 1px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.left-box-item:hover 
+{
+    cursor: pointer;
+    background-color: #bababa;
+}
+
+.left-box-item-title
+{
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.left-box-item-by
+{
+    width: 100%;
+}
+
+.left-box-item-type 
+{
+    width: 100%;
+}
+
+.left-box-item-date-start 
+{
+    width: 100%;
+}
+
+.left-box-item-date-end 
+{
+    width: 100%;
+}
+
+.right-box-view {
+    width: calc(60% - 70px);
+    height: calc(60vh - 60px);
+    float: left;
+    background-color: red;
+    margin-left: 2%;
+    margin-right: 8%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #aaaaaa;
+    border: 5px solid black;
+    padding: 30px;
+    font-size: 25px;
+}
+
+.right-box-title
+{
+    font-size: 40px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background-color: #e05252;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.right-box-by
+{
+    width: 50%;
+    float: left;
+}
+
+.right-box-type 
+{
+    width: 50%;
+    float: left;
+}
+
+.right-box-date-start 
+{
+    clear: both;
+    float: left;
+    width: 50%;
+}
+
+.right-box-date-end 
+{
+    width: 50%;
+    float: left;
+    margin-bottom: 20px;
+}
+
+.right-box-description {
+    width: calc(100% - 20px);
+    clear: both;
+    height: 140px;
+    overflow-y: scroll;
+    border: 2px solid #1c1c1c;
+    font-size: 18px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #dadada;
+    color: black;
+}
+
+.right-box-image
+{
+    width: 48%;
+    float: left;
+    margin-right: 4%;
+}
+
+.right-box-image-class 
+{
+    width: 80%;
+}
+
+.right-box-map
+{
+    color: black;
+    float: left;
+    width: 48%;
+    background-color: white;
+    height: 350px;
+}
