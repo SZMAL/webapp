@@ -317,7 +317,7 @@ ol > li > ul > li:hover > a
 .left-box-view 
 {
     width: calc(20% - 10px);
-    height: calc(60vh - 10px);
+    height: calc(60vh);
     background-color: white;
     float: left;
     margin-left: 8%;
