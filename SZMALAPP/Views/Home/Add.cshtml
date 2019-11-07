@@ -8,30 +8,73 @@
     <div class="content-title">
         Dodaj zgłoszenie
     </div>
-    <div class="add-form">
-        <input type="text" placeholder="Tytuł zgłoszenia" class="form-title" /><br />
-        <label class="radio-container">
-            Transportowa
-            <input type="radio" checked="checked" name="type" value="Transportowa">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radio-container">
-            Wodno-Kanalizacyjna
-            <input type="radio" name="type" value="Wodno-Kanalizacyjna">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radio-container">
-            Energetycznaa
-            <input type="radio" name="type" value="Energetyczna">
-            <span class="checkmark"></span>
-        </label>
-        <label class="radio-container">
-            Inna
-            <input type="radio" name="type" value="Inna">
-            <span class="checkmark"></span>
-        </label>
 
-        <textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />
-        <input type="file" value="Prze"/>
+    <div class="add-form">
+        <form id="new-alert" method="post">
+            <div class="form-input-title">
+                <input type="text" placeholder="Tytuł zgłoszenia" class="form-title" /><br />
+            </div>
+
+            <div class="form-input-date">
+                <label for="date-start" >Data rozpoczecia:</label>
+                <input type="date" id="date-start" class="form-date"/><br />
+                <label for="date-end">Data zakonczenia:</label>
+                <input type="date" id="date-end" class="form-date"/>
+            </div>
+
+            <div class="form-input-type">
+                <label class="radio-container">
+                    Transportowa
+                    <input type="radio" checked="checked" name="type" value="Transportowa">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-container">
+                    Wodno-Kanalizacyjna
+                    <input type="radio" name="type" value="Wodno-Kanalizacyjna">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-container">
+                    Energetycznaa
+                    <input type="radio" name="type" value="Energetyczna">
+                    <span class="checkmark"></span>
+                </label>
+
+                <label class="radio-container">
+                    Inna
+                    <input type="radio" name="type" value="Inna">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+
+            <div class="form-input-desc">
+                <textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />
+            </div>
+
+            <div class="form-map">
+                MIEJSCE NA MAPE
+                <input type="hidden" id="geo-width" />
+                <input type="hidden" id="geo-height" />
+            </div>
+
+            <div class="form-input-file">
+                <label for="form-file-id">Dodaj zalacznik</label>
+                <input type="file" id="form-file-id" class="form-file" accept=".jpg,.png,.bmp,.jpeg,.tiff,.gif" />
+            </div>
+
+            <div class="form-input-submit">
+                <button type="submit" id="form-submit-id" class="form-submit-class">Zatwierdź zgłoszenie</button>
+            </div>
+        </form>
     </div>
+
+    <script>
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("date-start").defaultValue = today; 
+    </script>
 </div>
