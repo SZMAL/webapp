@@ -433,6 +433,7 @@ ol > li > ul > li:hover > a
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 25px;
+    font-family: Verdana, sans-serif;
 }
 
 .right-box-by
