@@ -180,6 +180,7 @@ ol > li > ul > li:hover > a
 
 .main-container
 {
+    height: 100%;
     margin: 0px;
 }
 
@@ -194,6 +195,7 @@ ol > li > ul > li:hover > a
 
 .add-form {
     margin-left: 25%;
+    height: 100%;
     width: 50%;
     text-align: center;
     font-size: 24px;
@@ -286,7 +288,7 @@ ol > li > ul > li:hover > a
     border-radius: 15px;
 }
 
-.form-map {
+#form-map {
     margin-top: 30px;
     background-color: white;
     width: 100%;

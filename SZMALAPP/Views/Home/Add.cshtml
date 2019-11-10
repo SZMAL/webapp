@@ -16,10 +16,10 @@
             </div>
 
             <div class="form-input-date">
-                <label for="date-start" >Data rozpoczecia:</label>
-                <input type="date" id="date-start" class="form-date"/><br />
+                <label for="date-start">Data rozpoczecia:</label>
+                <input type="date" id="date-start" class="form-date" /><br />
                 <label for="date-end">Data zakonczenia:</label>
-                <input type="date" id="date-end" class="form-date"/>
+                <input type="date" id="date-end" class="form-date" />
             </div>
 
             <div class="form-input-type">
@@ -52,8 +52,8 @@
                 <textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />
             </div>
 
-            <div class="form-map">
-                MIEJSCE NA MAPE
+            <div id="form-map">
+
                 <input type="hidden" id="geo-width" />
                 <input type="hidden" id="geo-height" />
             </div>
@@ -70,11 +70,15 @@
     </div>
 
     <script>
+        window.onload = getLocationToChoosePlace();
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0');
         var yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
-        document.getElementById("date-start").defaultValue = today; 
+        document.getElementById("date-start").defaultValue = today;
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocationToChoosePlace">
     </script>
 </div>

@@ -1,9 +1,9 @@
 function showRegisterPopup() {
-	document.getElementById('register-wrapper').style.display='block'
+    document.getElementById('register-wrapper').style.display = 'block'
 }
 
 function showLoginPopup() {
-	document.getElementById('login-wrapper').style.display='block'
+    document.getElementById('login-wrapper').style.display = 'block'
 }
 
 
@@ -59,7 +59,7 @@ function showPosition(position) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(southWest.lat() + latSpan * Math.random(), southWest.lng() + lngSpan * Math.random()),
             map: map,
-            title: 'Click Me ' + i,
+            title: 'Zobacz szczegó³y',
             icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
         });
 
@@ -67,17 +67,80 @@ function showPosition(position) {
         (function (marker, i) {
             // add click event
             google.maps.event.addListener(marker, 'click', function () {
-             
+
                 infowindow = new google.maps.InfoWindow({
-                    content: 'Bartek chuj!!!',
-                    
+                    content: 'Jestem tutaj',
+
                 });
-               
+
                 infowindow.open(map, marker);
             });
         })(marker, i);
     }
 
-    //var marker = new google.maps.Marker({ position: centerLocation, map: map });
-    
+}
+
+function getLocationToChoosePlace() {
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(choosePlace);
+    }
+    else {
+        x.innerHTML = "Geolokalizacja nie jest wpierana przez przegl¹darkê!";
+    }
+}
+
+function choosePlace(position) {
+    $("#coordinates").append("Szerokoœæ geograficzna: " + position.coords.latitude +
+        "<br>D³ugoœæ geograficzna: " + position.coords.longitude);
+    var latlon = position.coords.latitude + "," + position.coords.longitude;
+    var image_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + " &zoom=14&key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo";
+    document.getElementById("form-map").innerHTML = "<img src='" + image_url + "'>";
+    var centerLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+    var map = new google.maps.Map(
+        document.getElementById('form-map'), { zoom: 14, center: centerLocation, disableDoubleClickZoom: true });
+
+    var geocoder = new google.maps.Geocoder();
+    var infowindow = new google.maps.InfoWindow;
+    var marker;
+    marker = new google.maps.Marker({
+        position: centerLocation,
+        map: map
+    });
+    map.addListener('click', function (e) {
+        placeMarker(e.latLng, map);
+    });
+
+    var lat, lng;
+    function placeMarker(position, map) {
+        if (marker) {
+            marker.setPosition(position);
+        }
+        else {
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: 'Ustaw to miejsce'
+            });
+        }
+        lat = marker.getPosition().lat();
+        lng = marker.getPosition().lng();
+        var latlng = new google.maps.LatLng(lat, lng);
+        geocoder.geocode({ 'latLng': latlng },
+            function (results, status) {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        infowindow.setContent(results[0].formatted_address);
+                        infowindow.open(map, marker);
+                    }
+                    else {
+                        alert('No results found');
+                    }
+                }
+                else {
+                    alert('Geocoder failed due to: ' + status);
+                }
+            });
+        map.panTo(position);
+    }
 }
