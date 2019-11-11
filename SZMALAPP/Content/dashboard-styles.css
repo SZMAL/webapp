@@ -350,7 +350,9 @@ ol > li > ul > li:hover > a
 .form-submit-class:hover {
     background-color: aquamarine;
 }
-
+.box-wrapper{
+    height: 100%;
+}
     .left-box-view {
         width: calc(20% - 10px);
         height: calc(60vh);
@@ -490,7 +492,7 @@ ol > li > ul > li:hover > a
     border-radius: 25px;
 }
 
-.right-box-map {
+#right-box-map {
     color: black;
     float: left;
     width: 48%;
