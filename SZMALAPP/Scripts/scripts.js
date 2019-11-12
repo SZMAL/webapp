@@ -141,20 +141,29 @@ function choosePlace(position) {
     }
 }
 
+function getLocationForEvent() {
 
-
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showEventOnMap);
+    }
+    else {
+        x.innerHTML = "Geolokalizacja nie jest wpierana przez przegl¹darkê!";
+    }
+}
 
 function showEventOnMap() {
-    //!!!!!BARTEK!!! Tutaj potrzebuje szerokosci i d³ugosci danego zdarzenia
-    var lat1 = 52.242399;
-    var lng1 = 20.874975;
-   
-    var centerLocation = { lat: -25.344, lng: 131.036 };
-   
-    var map = new google.maps.Map(
-        document.getElementsById('right-box-map'), { zoom: 14, center: centerLocation, mapTypeControl: false });
 
-    marker = new google.maps.Marker({ position: centerLocation , map: map });
+    var centerLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+
+    // Ustawiamy punkt centralny mapy na nasz¹ obecn¹ lokalizacjê
+    var map = new google.maps.Map(
+        document.getElementById('right-box-map'), { zoom: 14, center: centerLocation, mapTypeControl: false });
+
+
+    //!!!!!BARTEK!!! Tutaj potrzebuje szerokosci i d³ugosci danego zdarzenia
+    var eventPosition = new google.maps.LatLng(52.242399, 20.874975);
+  
+    marker = new google.maps.Marker({ position: eventPosition, map: map });
  
 
 }
