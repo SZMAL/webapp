@@ -28,19 +28,6 @@ function getLocation() {
 
 function showPosition(position) {
 
-    //Poni¿ej pobieramy wspó³rzêdne geograficznej lokalizacji w której siê znajdujemy
-    $("#coordinates").append("Szerokoœæ geograficzna: " + position.coords.latitude +
-        "<br>D³ugoœæ geograficzna: " + position.coords.longitude);
-
-    // Wspó³rzêdne geograficznej przygotowujemy w formacie akceptowalny przez API
-    var latlon = position.coords.latitude + "," + position.coords.longitude;
-
-    // Tworzymy statyczny obrazek korzystaj¹c z Maps Static API do³¹czaj¹c zdefiniowan¹ lokalizacjê oraz...
-    // kilka parametrów, tj. przybli¿enie oraz nasz prywatny klucz
-    var image_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + " &zoom=14&key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo";
-
-    // wygenerowany powy¿ej adres wstrzykujemy do naszego kontenera odpowiedzialnego za wyœwietlanie mapy
-    document.getElementById("map").innerHTML = "<img src='" + image_url + "'>";
 
     // Definiujemy obiekt przechowuj¹cy nasze po³o¿enie...
     var centerLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
@@ -100,11 +87,7 @@ function getLocationToChoosePlace() {
 }
 
 function choosePlace(position) {
-    $("#coordinates").append("Szerokoœæ geograficzna: " + position.coords.latitude +
-        "<br>D³ugoœæ geograficzna: " + position.coords.longitude);
-    var latlon = position.coords.latitude + "," + position.coords.longitude;
-    var image_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + " &zoom=14&key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo";
-    document.getElementById("form-map").innerHTML = "<img src='" + image_url + "'>";
+   
     var centerLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
     var map = new google.maps.Map(
         document.getElementById('form-map'), { zoom: 14, center: centerLocation, disableDoubleClickZoom: true });
@@ -165,21 +148,13 @@ function showEventOnMap() {
     //!!!!!BARTEK!!! Tutaj potrzebuje szerokosci i d³ugosci danego zdarzenia
     var lat1 = 52.242399;
     var lng1 = 20.874975;
-    var position = new google.maps.LatLng(lat, lng);
-    var image_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + " &zoom=14&key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo";
-
    
-    document.getElementById("right-box-map").innerHTML = "<img src='" + image_url + "'>";
+    var centerLocation = { lat: -25.344, lng: 131.036 };
+   
     var map = new google.maps.Map(
-        document.getElementById('right-box-map'), { zoom: 14, center: { lat: lat1, lng: lng1 }, mapTypeControl: false });
-   
-    var iconBase = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+        document.getElementsById('right-box-map'), { zoom: 14, center: centerLocation, mapTypeControl: false });
 
-    marker = new google.maps.Marker({
-        position: position,
-        map: map,
-        title: 'Ustaw to miejsce'
-    });
+    marker = new google.maps.Marker({ position: centerLocation , map: map });
  
 
 }
