@@ -456,20 +456,20 @@ ol {
 }
 
 .right-box-image {
-    width: 48%;
+    width: 40%;
     float: left;
     margin-right: 4%;
 }
 
 .right-box-image-class {
-    width: 80%;
+    width: 90%;
     border-radius: 25px;
 }
 
 #right-box-map {
     color: black;
     float: left;
-    width: 48%;
+    width: 56%;
     background-color: white;
     height: 350px;
     border-radius: 25px;
