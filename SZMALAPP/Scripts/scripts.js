@@ -117,7 +117,6 @@ function choosePlace(position) {
         }
         lat = marker.getPosition().lat();
         lng = marker.getPosition().lng();
-        ///!!!!!!BARTEK !!!!!! lat i lng to szerokosc i d³ugoœæ, trzeba to wprowadziæ do bazy
         var latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({ 'latLng': latlng },
             function (results, status) {
@@ -131,8 +130,6 @@ function choosePlace(position) {
                         t.value = lng;
                         var u = document.getElementById('address');
                         u.value = results[0].formatted_address;
-                        //!!!!BARTEK!!!! result[0] to adres. Adres bedzie teraz jednym ciagiem stringów
-                        //nie bedziemy go rozbijac na ulice itp. trzeba to wprowadzic do bazy 
                     }
                     else {
                         alert('No results found');
@@ -167,8 +164,4 @@ function showEventOnMap() {
 
     //!!!!!BARTEK!!! Tutaj potrzebuje szerokosci i d³ugosci danego zdarzenia
     var eventPosition = new google.maps.LatLng(52.242399, 20.874975);
-  
-    marker = new google.maps.Marker({ position: eventPosition, map: map });
- 
-
 }

@@ -16,57 +16,43 @@
         {        
         <div class="form-input-title">
             @Html.TextBoxFor(a => a.nazwa_zgloszenia, new { @class = "form-title" , placeholder = "Tytuł zgłoszenia"})<br />
-            <!--<input type="text" placeholder="Tytuł zgłoszenia" class="form-title" />-->
         </div>
 
         <div class="form-input-date">
             <label for="date-start">Data rozpoczecia:</label>
             @Html.TextBoxFor(a => a.data_rozpoczecia, new { type = "date", @class = "form-date", @id = "date-start" })<br />
-            <!--<input type="date" id="date-start" class="form-date" />-->
             <label for="date-end">Data zakonczenia:</label>
             @Html.TextBoxFor(a => a.data_zakonczenia, new { type = "date", @class = "form-date", @id = "date-end" })
-            <!--<input type="date" id="date-end" class="form-date" />-->
         </div>
 
             <div class="form-input-type">
                 <label class="radio-container">
                     Transportowa
                     @Html.RadioButtonFor(a => a.typ_zgloszenia, "Transportowa")
-                    <!--<input type="radio" checked="checked" name="type" value="Transportowa">-->
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="radio-container">
                     Wodno-Kanalizacyjna
                     @Html.RadioButtonFor(a => a.typ_zgloszenia, "Wodno-Kanalizacyjna")
-                    <!--<input type="radio" name="type" value="Wodno-Kanalizacyjna">-->
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="radio-container">
                     Energetyczna
                     @Html.RadioButtonFor(a => a.typ_zgloszenia, "Energetyczna")
-                    <!--<input type="radio" name="type" value="Energetyczna">-->
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="radio-container">
                     Inna
                     @Html.RadioButtonFor(a => a.typ_zgloszenia, "Inna")
-                    <!--<input type="radio" name="type" value="Inna">-->
                     <span class="checkmark"></span>
                 </label>
             </div>
 
             <div class="form-input-desc">
                 @Html.TextAreaFor(a => a.opis, new { @class = "form-desc", placeholder = "Opis", cols = "70", rows = "10" })<br />
-                <!--<textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />-->
-            </div>
-            <div class="form-input-geo">
-                @Html.TextBoxFor(a => a.szerokosc, new { @id = "geo-width" , @readonly= "readonly" , type="number" })
-                
-                @Html.TextBoxFor(a => a.dlugosc, new { @id = "geo-height" , @readonly= "readonly", type="number" })
-                @Html.TextBoxFor(a => a.adres, new { @id = "address" ,@readonly= "readonly"})
             </div>
             <div id="form-map">
                 <!--
@@ -75,12 +61,24 @@
     <input type="hidden" id="address" />
         -->
             </div>
-
+            <div class="form-input-geo">
+                <div class="form-input-geo-width-height">
+                    @Html.TextBoxFor(a => a.szerokosc, new { @class = "form-geo", @id = "geo-width", @readonly = "readonly" })
+                    @Html.TextBoxFor(a => a.dlugosc, new { @class = "form-geo", @id = "geo-height", @readonly = "readonly" })
+                </div>
+                <div class="form-input-geo-address">
+                    @Html.TextBoxFor(a => a.adres, new { @class = "form-address", @id = "address", @readonly = "readonly"})
+                </div>
+                
+            </div>
             <div class="form-input-file">
-                <input type="file" id="form-file-id" class="form-file" accept=".jpg,.png,.bmp,.jpeg,.tiff,.gif" />
+                @Html.TextBoxFor(a => a.image, new { @id = "form-file-id", type = "file", @class = "form-file", accept = ".jpg,.png,.bmp,.jpeg,.tiff,.gif"})
+               
                 <label for="form-file-id">Dodaj zalacznik (JPG, PNG, BMP, GIF, TIFF)</label>
             </div>
-
+            <div class="form-input-file-preview">
+                <img id="form-file-preview" src="" width="500" alt="Wybierz obraz, aby go podejrzeć"/>
+            </div>
             <div class="form-input-submit">
                 <button type="submit" id="form-submit-id" class="form-submit-class">Zatwierdź zgłoszenie</button>
             </div>
@@ -95,6 +93,22 @@
         var yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
         document.getElementById("date-start").defaultValue = today;
+
+        
+        var input = document.querySelector('input[type=file]');
+        // You will receive the Base64 value every time a user selects a file from his device
+        // As an example I selected a one-pixel red dot GIF file from my computer
+        input.onchange = function () {
+            var file = input.files[0],
+                reader = new FileReader();
+            reader.onloadend = function () {
+                // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
+                document.getElementById('form-file-preview').setAttribute('src', reader.result);
+                var b64 = reader.result.replace(/^data:.+;base64,/, '');
+            };
+            reader.readAsDataURL(file);
+        };
+        
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocationToChoosePlace">
