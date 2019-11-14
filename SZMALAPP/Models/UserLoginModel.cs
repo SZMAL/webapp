@@ -22,5 +22,6 @@ namespace SZMALAPP.Models
         [Required(ErrorMessage = "Pole nie może być puste")]
         [DataType(DataType.EmailAddress,ErrorMessage ="Adres E-Mail nie jest poprawny")]
         public string Email { get; set; }
+
     }
 }

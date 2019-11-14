@@ -20,6 +20,11 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/About.cshtml", u);
         }
+
+        public ActionResult Yours(bool success)
+        {
+            return View();
+        }
         // GET: Przegladaj Aktualne
         public ActionResult Actual(uzytkownik u)
         {
@@ -63,9 +68,22 @@ namespace SZMALAPP.Controllers
 
         //POST: Add
 
-        public ActionResult Add(Event ev)
+        public ActionResult Add(zgloszenie ev)
         {
+            using (szmalDBEvents events= new szmalDBEvents())
+            {
+                try
+                {
+                    events.zgloszenies.Add(ev);
+                    events.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return View("~/Views/Home/Add.cshtml", false);
+                }
+            }
 
+            return View("~/Views/Home/Yours.cshtml", true);
         }
     }
 }
