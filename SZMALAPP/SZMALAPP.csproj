@@ -119,6 +119,16 @@
     <Content Include="Content\dashboard-styles.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\styles.css" />
+    <Content Include="Models\Event.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Event.edmx</DependentUpon>
+      <LastGenOutput>Event.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Event.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Event.edmx</DependentUpon>
+      <LastGenOutput>Event.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -143,6 +153,13 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Views\Login\Index.cshtml" />
+    <EntityDeploy Include="Models\Event.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Event.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Event.edmx.diagram">
+      <DependentUpon>Event.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -208,6 +225,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Event.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Event.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Event.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Event.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Event.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Event.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,6 +258,9 @@
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Models\uzytkownik.cs">
       <DependentUpon>User.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\zgloszenie.cs">
+      <DependentUpon>Event.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

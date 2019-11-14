@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="szmalDBEvent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="zgloszenie">
+          <Key>
+            <PropertyRef Name="id_zgloszenia" />
+          </Key>
+          <Property Name="id_zgloszenia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="typ_zgloszenia" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="adres" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="fk_login" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="szerokosc" Type="float" />
+          <Property Name="dlugosc" Type="float" />
+          <Property Name="image" Type="image" />
+          <Property Name="opis" Type="nvarchar" MaxLength="300" />
+          <Property Name="data_rozpoczecia" Type="date" />
+          <Property Name="data_zakonczenia" Type="date" />
+        </EntityType>
+        <EntityContainer Name="szmalDBEventStoreContainer">
+          <EntitySet Name="zgloszenie" EntityType="Self.zgloszenie" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="szmalDBEvent" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="zgloszenie">
+          <Key>
+            <PropertyRef Name="id_zgloszenia" />
+          </Key>
+          <Property Name="id_zgloszenia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="typ_zgloszenia" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="adres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="fk_login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="szerokosc" Type="Double" />
+          <Property Name="dlugosc" Type="Double" />
+          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="opis" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="data_rozpoczecia" Type="DateTime" Precision="0" />
+          <Property Name="data_zakonczenia" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityContainer Name="szmalDBEvents" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="zgloszenies" EntityType="Self.zgloszenie" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="szmalDBEventStoreContainer" CdmEntityContainer="szmalDBEvents">
+          <EntitySetMapping Name="zgloszenies">
+            <EntityTypeMapping TypeName="szmalDBEvent.zgloszenie">
+              <MappingFragment StoreEntitySet="zgloszenie">
+                <ScalarProperty Name="id_zgloszenia" ColumnName="id_zgloszenia" />
+                <ScalarProperty Name="typ_zgloszenia" ColumnName="typ_zgloszenia" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="fk_login" ColumnName="fk_login" />
+                <ScalarProperty Name="szerokosc" ColumnName="szerokosc" />
+                <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
+                <ScalarProperty Name="image" ColumnName="image" />
+                <ScalarProperty Name="opis" ColumnName="opis" />
+                <ScalarProperty Name="data_rozpoczecia" ColumnName="data_rozpoczecia" />
+                <ScalarProperty Name="data_zakonczenia" ColumnName="data_zakonczenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

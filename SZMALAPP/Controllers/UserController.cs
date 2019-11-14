@@ -59,5 +59,13 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
+
+
+        //POST: Add
+
+        public ActionResult Add(Event ev)
+        {
+
+        }
     }
 }
