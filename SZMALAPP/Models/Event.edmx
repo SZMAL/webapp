@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="szmalDBEvent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="szmalDBEvent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="zgloszenie">
           <Key>
             <PropertyRef Name="id_zgloszenia" />
@@ -20,12 +20,12 @@
           <Property Name="opis" Type="nvarchar" MaxLength="300" />
           <Property Name="data_rozpoczecia" Type="date" />
           <Property Name="data_zakonczenia" Type="date" />
+          <Property Name="nazwa_zgloszenia" Type="nchar" MaxLength="30" />
         </EntityType>
         <EntityContainer Name="szmalDBEventStoreContainer">
           <EntitySet Name="zgloszenie" EntityType="Self.zgloszenie" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="szmalDBEvent" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -44,6 +44,7 @@
           <Property Name="opis" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="data_rozpoczecia" Type="DateTime" Precision="0" />
           <Property Name="data_zakonczenia" Type="DateTime" Precision="0" />
+          <Property Name="nazwa_zgloszenia" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityContainer Name="szmalDBEvents" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="zgloszenies" EntityType="Self.zgloszenie" />
@@ -57,6 +58,7 @@
           <EntitySetMapping Name="zgloszenies">
             <EntityTypeMapping TypeName="szmalDBEvent.zgloszenie">
               <MappingFragment StoreEntitySet="zgloszenie">
+                <ScalarProperty Name="nazwa_zgloszenia" ColumnName="nazwa_zgloszenia" />
                 <ScalarProperty Name="id_zgloszenia" ColumnName="id_zgloszenia" />
                 <ScalarProperty Name="typ_zgloszenia" ColumnName="typ_zgloszenia" />
                 <ScalarProperty Name="adres" ColumnName="adres" />

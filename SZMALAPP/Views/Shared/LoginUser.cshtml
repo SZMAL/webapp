@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="pl">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>SZMAL</title>
+    <meta name="description" content="dashboard">
+    <meta name="author" content="FilipW">
+    <link rel="stylesheet" href="~/Content/dashboard-styles.css">
+    @Scripts.Render("~/Scripts/scripts.js")
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <div class="company-name">
+                SZMAL
+            </div>
+            <div class="welcome-your-name">
+                Witaj Imię!
+            </div>
+            <div style="clear: both;"></div>
+        </div>
+        <div class="nav">
+            <ol>
+                <li><a href="#">Dodaj</a></li>
+                <li>
+                    <a href="#">Przeglądaj</a>
+                    <ul>
+                        <li><a href="#">Aktualne</a></li>
+                        <li><a href="#">Poczekalnia</a></li>
+                        <li><a href="#">Twoje</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Ustawienia</a>
+
+                </li>
+                <li>
+                    <a href="#">Statystyki</a>
+                    <ul>
+                        <li><a href="#">Twoje</a></li>
+                        <li><a href="#">Serwisu</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Administracja</a>
+                    <ul>
+                        <li><a href="#">Poczekalnia</a></li>
+                        <li><a href="#">Odrzucone</a></li>
+                        <li><a href="#">Zaufani</a></li>
+                        <li><a href="#">Użytkownicy</a></li>
+                        <li><a href="#">Ustawienia</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">O autorach</a></li>
+            </ol>
+        </div>
+        <div class="content">
+            <!--
+        Tu będzie zawartość strony
+
+    -->
+            TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />TEST CONTENT<br />
+        </div>
+    </div>
+    <div class="footer">
+        <span class="rights">
+            SZMAL Company®, All Rights Reserved
+        </span>
+        <button type="button" class="footer-button facebook" onclick=openFacebook()>Facebook</button>
+    </div>
+
+
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var NavY = $('.nav').offset().top;
+
+            var stickyNav = function () {
+                var ScrollY = $(window).scrollTop();
+
+                if (ScrollY > NavY) {
+                    $('.nav').addClass('sticky');
+                } else {
+                    $('.nav').removeClass('sticky');
+                }
+            };
+
+            stickyNav();
+
+            $(window).scroll(function () {
+                stickyNav();
+            });
+        });
+    </script>
+</body>
+</html>

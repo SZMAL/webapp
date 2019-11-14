@@ -117,7 +117,6 @@ function choosePlace(position) {
         }
         lat = marker.getPosition().lat();
         lng = marker.getPosition().lng();
-
         ///!!!!!!BARTEK !!!!!! lat i lng to szerokosc i d³ugoœæ, trzeba to wprowadziæ do bazy
         var latlng = new google.maps.LatLng(lat, lng);
         geocoder.geocode({ 'latLng': latlng },
@@ -126,6 +125,12 @@ function choosePlace(position) {
                     if (results[0]) {
                         infowindow.setContent(results[0].formatted_address);
                         infowindow.open(map, marker);
+                        var s = document.getElementById('geo-width');
+                        s.value = lat;
+                        var t = document.getElementById('geo-height');
+                        t.value = lng;
+                        var u = document.getElementById('address');
+                        u.value = results[0].formatted_address;
                         //!!!!BARTEK!!!! result[0] to adres. Adres bedzie teraz jednym ciagiem stringów
                         //nie bedziemy go rozbijac na ulice itp. trzeba to wprowadzic do bazy 
                     }

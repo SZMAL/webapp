@@ -41,7 +41,7 @@ namespace SZMALAPP.Controllers
 
                else if (ModelState.IsValid)
                 {
-                   Session["UserID"] = obj.login.ToString();
+                    Session["UserID"] = obj;
                    return View("~/Views/Home/Yours.cshtml", obj);
                 }
             
@@ -69,24 +69,26 @@ namespace SZMALAPP.Controllers
         public async Task<ActionResult> TryLogin(UserLoginModel user)
         {
 
-            using (szmaldbEntities db = new szmaldbEntities())
+
             {
-                if (db.uzytkowniks.Any(u => u.login == user.Login && u.haslo == user.Password))
+                using (szmaldbEntities db = new szmaldbEntities())
                 {
-                    Session["UserID"] = user.Login.ToString();
-                    return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.Login));
-                }
-                else
-                {
-                    ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
+                    if (db.uzytkowniks.Any(u => u.login == user.Login && u.haslo == user.Password))
+                    {
+                        Session["UserID"] = user.Login.ToString();
+                        return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.Login));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
 
-                    var view = View("~/Views/Index.cshtml", user);
-                    view.ViewData.ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
-                    return PartialView("Index", user);
+                        var view = View("~/Views/Index.cshtml", user);
+                        view.ViewData.ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
+                        return PartialView("Index", user);
+                    }
                 }
+
             }
-
-
         }
 
 

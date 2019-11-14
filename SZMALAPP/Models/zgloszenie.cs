@@ -25,5 +25,6 @@ namespace SZMALAPP.Models
         public string opis { get; set; }
         public Nullable<System.DateTime> data_rozpoczecia { get; set; }
         public Nullable<System.DateTime> data_zakonczenia { get; set; }
+        public string nazwa_zgloszenia { get; set; }
     }
 }

@@ -1,8 +1,8 @@
-﻿@model SZMALAPP.Models.Event
+﻿@model SZMALAPP.Models.zgloszenie
 @{
     ViewBag.Title = "Add";
     Layout = "~/Views/Home/_Layout.cshtml";
-    
+
 }
 
 
@@ -12,52 +12,68 @@
     </div>
 
     <div class="add-form">
-        <form id="new-alert" method="post">
-            <div class="form-input-title">
-                <input type="text" placeholder="Tytuł zgłoszenia" class="form-title" /><br />
-            </div>
+        @using (Html.BeginForm("AddEvent", "User", FormMethod.Post))
+        {        
+        <div class="form-input-title">
+            @Html.TextBoxFor(a => a.nazwa_zgloszenia, new { @class = "form-title" , placeholder = "Tytuł zgłoszenia"})<br />
+            <!--<input type="text" placeholder="Tytuł zgłoszenia" class="form-title" />-->
+        </div>
 
-            <div class="form-input-date">
-                <label for="date-start">Data rozpoczecia:</label>
-                <input type="date" id="date-start" class="form-date" /><br />
-                <label for="date-end">Data zakonczenia:</label>
-                <input type="date" id="date-end" class="form-date" />
-            </div>
+        <div class="form-input-date">
+            <label for="date-start">Data rozpoczecia:</label>
+            @Html.TextBoxFor(a => a.data_rozpoczecia, new { type = "date", @class = "form-date", @id = "date-start" })<br />
+            <!--<input type="date" id="date-start" class="form-date" />-->
+            <label for="date-end">Data zakonczenia:</label>
+            @Html.TextBoxFor(a => a.data_zakonczenia, new { type = "date", @class = "form-date", @id = "date-end" })
+            <!--<input type="date" id="date-end" class="form-date" />-->
+        </div>
 
             <div class="form-input-type">
                 <label class="radio-container">
                     Transportowa
-                    <input type="radio" checked="checked" name="type" value="Transportowa">
+                    @Html.RadioButtonFor(a => a.typ_zgloszenia, "Transportowa")
+                    <!--<input type="radio" checked="checked" name="type" value="Transportowa">-->
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="radio-container">
                     Wodno-Kanalizacyjna
-                    <input type="radio" name="type" value="Wodno-Kanalizacyjna">
+                    @Html.RadioButtonFor(a => a.typ_zgloszenia, "Wodno-Kanalizacyjna")
+                    <!--<input type="radio" name="type" value="Wodno-Kanalizacyjna">-->
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="radio-container">
-                    Energetycznaa
-                    <input type="radio" name="type" value="Energetyczna">
+                    Energetyczna
+                    @Html.RadioButtonFor(a => a.typ_zgloszenia, "Energetyczna")
+                    <!--<input type="radio" name="type" value="Energetyczna">-->
                     <span class="checkmark"></span>
                 </label>
 
                 <label class="radio-container">
                     Inna
-                    <input type="radio" name="type" value="Inna">
+                    @Html.RadioButtonFor(a => a.typ_zgloszenia, "Inna")
+                    <!--<input type="radio" name="type" value="Inna">-->
                     <span class="checkmark"></span>
                 </label>
             </div>
 
             <div class="form-input-desc">
-                <textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />
+                @Html.TextAreaFor(a => a.opis, new { @class = "form-desc", placeholder = "Opis", cols = "70", rows = "10" })<br />
+                <!--<textarea cols="70" rows="10" placeholder="Opis" class="form-desc"></textarea><br />-->
             </div>
-
+            <div class="form-input-geo">
+                @Html.TextBoxFor(a => a.szerokosc, new { @id = "geo-width" , @readonly= "readonly" , type="number" })
+                
+                @Html.TextBoxFor(a => a.dlugosc, new { @id = "geo-height" , @readonly= "readonly", type="number" })
+                @Html.TextBoxFor(a => a.adres, new { @id = "address" ,@readonly= "readonly"})
+            </div>
             <div id="form-map">
-
-                <input type="hidden" id="geo-width" />
-                <input type="hidden" id="geo-height" />
+                <!--
+    <input type="hidden" id="geo-width" />
+    <input type="hidden" id="geo-height" />
+    <input type="hidden" id="address" />
+        -->
             </div>
 
             <div class="form-input-file">
@@ -68,7 +84,7 @@
             <div class="form-input-submit">
                 <button type="submit" id="form-submit-id" class="form-submit-class">Zatwierdź zgłoszenie</button>
             </div>
-        </form>
+        }
     </div>
 
     <script>

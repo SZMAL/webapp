@@ -31,9 +31,9 @@ namespace SZMALAPP.Controllers
             return View("~/Views/Home/Actual.cshtml", u);
         }
         // GET: Dodaj
-        public ActionResult Add(uzytkownik u)
+        public ActionResult Add()
         {
-            return View("~/Views/Home/Add.cshtml", u);
+            return View("~/Views/Home/Add.cshtml");
         }
 
         // GET: Przegladaj poczekalnia
@@ -67,19 +67,20 @@ namespace SZMALAPP.Controllers
 
 
         //POST: Add
-
-        public ActionResult Add(zgloszenie ev)
+        [HttpPost]
+        public ActionResult AddEvent(zgloszenie ev)
         {
             using (szmalDBEvents events= new szmalDBEvents())
             {
                 try
                 {
+                    ev.fk_login = ((uzytkownik)Session["UserID"]).login;
                     events.zgloszenies.Add(ev);
                     events.SaveChanges();
                 }
                 catch (Exception e)
                 {
-                    return View("~/Views/Home/Add.cshtml", false);
+                    return View("~/Views/Home/Error.cshtml", e.Message);
                 }
             }
 
