@@ -72,6 +72,8 @@
                 
             </div>
             <div class="form-input-file">
+                <input type="file" id="form-file-id" class="form-file", accept=".jpg,.png,.bmp,.jpeg,.tiff,.gif" />
+                
                 @Html.TextBoxFor(a => a.image, new { @id = "form-file-id", type = "file", @class = "form-file", accept = ".jpg,.png,.bmp,.jpeg,.tiff,.gif"})
                
                 <label for="form-file-id">Dodaj zalacznik (JPG, PNG, BMP, GIF, TIFF)</label>
@@ -93,7 +95,6 @@
         var yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
         document.getElementById("date-start").defaultValue = today;
-
         
         var input = document.querySelector('input[type=file]');
         // You will receive the Base64 value every time a user selects a file from his device
@@ -101,7 +102,7 @@
         input.onchange = function () {
             var file = input.files[0],
                 reader = new FileReader();
-            reader.onloadend = function () {
+                reader.onloadend = function () {
                 // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
                 document.getElementById('form-file-preview').setAttribute('src', reader.result);
                 var b64 = reader.result.replace(/^data:.+;base64,/, '');
