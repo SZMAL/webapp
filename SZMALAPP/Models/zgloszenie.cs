@@ -17,14 +17,14 @@ namespace SZMALAPP.Models
         public int id_zgloszenia { get; set; }
         public string typ_zgloszenia { get; set; }
         public string adres { get; set; }
-        public int status { get; set; }
+        public Nullable<int> status { get; set; }
         public string fk_login { get; set; }
-        public Nullable<double> szerokosc { get; set; }
-        public Nullable<double> dlugosc { get; set; }
-        public byte[] image { get; set; }
+        public string szerokosc { get; set; }
+        public string dlugosc { get; set; }
         public string opis { get; set; }
-        public Nullable<System.DateTime> data_rozpoczecia { get; set; }
-        public Nullable<System.DateTime> data_zakonczenia { get; set; }
+        public System.DateTime data_rozpoczecia { get; set; }
+        public System.DateTime data_zakonczenia { get; set; }
         public string nazwa_zgloszenia { get; set; }
+        public string image { get; set; }
     }
 }

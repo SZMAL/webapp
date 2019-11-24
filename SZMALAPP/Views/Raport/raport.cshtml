@@ -1,0 +1,179 @@
+﻿@model SZMALAPP.Models.zgloszenie
+@{
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <title>Test invoice #101</title>
+    <style>
+
+        .invoice-container {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+            .invoice-container table {
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+            }
+
+                .invoice-container table td {
+                    padding: 5px;
+                    vertical-align: top;
+                }
+
+                .invoice-container table tr td:nth-child(2) {
+                    text-align: right;
+                }
+
+                .invoice-container table tr.top table td {
+                    padding-bottom: 20px;
+                }
+
+                    .invoice-container table tr.top table td.title {
+                        font-size: 45px;
+                        line-height: 45px;
+                        color: #333;
+                    }
+
+                .invoice-container table tr.information table td {
+                    padding-bottom: 40px;
+                }
+
+                .invoice-container table tr.heading td {
+                    background: #eee;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: bold;
+                }
+
+                .invoice-container table tr.details td {
+                    padding-bottom: 20px;
+                }
+
+                .invoice-container table tr.item td {
+                    border-bottom: 1px solid #eee;
+                }
+
+                .invoice-container table tr.item.last td {
+                    border-bottom: none;
+                }
+
+                .invoice-container table tr.total td:nth-child(2) {
+                    border-top: 2px solid #eee;
+                    font-weight: bold;
+                }
+
+        @media only print {
+            .invoice-container table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-container table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+    </style>
+    <script>
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("date-start").defaultValue = today;
+    </script>
+</head>
+<body>
+    <div class="invoice-container">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                SZMAL
+                            </td>
+                            <td>
+                                Raport o zdarzeniu<br>
+                                <label for="date-start">Data wygenerowania:</label>
+                                <div id="date"></div>
+                                Data wygaśnięcia: February 1, 2017
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td>
+                                Kartezjusza 1C.<br>
+                                01-476. Warszawa
+                            </td>
+                            <td>
+                                <br>
+                                <br>
+                                <br>
+                                <b>
+                                    Sławex sp. z o.o.<br>
+                                    adres<br>
+                                    mirex@slawex.pl
+                                </b>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <table cellpadding="0" cellspacing="0">
+            <tr class="heading">
+                <td>
+                    Nazwa zdarzenia
+                </td>
+                <td>
+                    Typ zgloszenia
+                </td>
+                <td>
+                    Opis zgloszenia
+                </td>
+                <td>
+                    Adres
+                </td>
+                <td>
+                    Data rozpoczęcia
+                </td>
+                <td>
+                    Data zakończenia
+                </td>
+            </tr>
+            
+            
+            <tr class="item">
+                <td>@Model.nazwa_zgloszenia</td>
+                <td>@Model.typ_zgloszenia</td>
+                <td>@Model.opis</td>
+                <td>@Model.adres</td>
+                <td>@Model.data_rozpoczecia</td>
+                <td>@Model.data_zakonczenia</td>
+            </tr>
+            
+        </table>
+    </div>
+
+</body>
+</html>

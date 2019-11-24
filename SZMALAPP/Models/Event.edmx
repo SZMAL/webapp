@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="szmalDBEvent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="szmalDBEvent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="zgloszenie">
           <Key>
             <PropertyRef Name="id_zgloszenia" />
@@ -12,20 +12,21 @@
           <Property Name="id_zgloszenia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="typ_zgloszenia" Type="nchar" MaxLength="20" Nullable="false" />
           <Property Name="adres" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="status" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" />
           <Property Name="fk_login" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="szerokosc" Type="float" />
-          <Property Name="dlugosc" Type="float" />
-          <Property Name="image" Type="image" />
-          <Property Name="opis" Type="nvarchar" MaxLength="300" />
-          <Property Name="data_rozpoczecia" Type="date" />
-          <Property Name="data_zakonczenia" Type="date" />
-          <Property Name="nazwa_zgloszenia" Type="nchar" MaxLength="30" />
+          <Property Name="szerokosc" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="dlugosc" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="opis" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="data_rozpoczecia" Type="date" Nullable="false" />
+          <Property Name="data_zakonczenia" Type="date" Nullable="false" />
+          <Property Name="nazwa_zgloszenia" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="image" Type="nchar" MaxLength="30" />
         </EntityType>
         <EntityContainer Name="szmalDBEventStoreContainer">
           <EntitySet Name="zgloszenie" EntityType="Self.zgloszenie" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="szmalDBEvent" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -36,17 +37,17 @@
           <Property Name="id_zgloszenia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="typ_zgloszenia" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="adres" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="status" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" />
           <Property Name="fk_login" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="szerokosc" Type="Double" />
-          <Property Name="dlugosc" Type="Double" />
-          <Property Name="image" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="opis" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="data_rozpoczecia" Type="DateTime" Precision="0" />
-          <Property Name="data_zakonczenia" Type="DateTime" Precision="0" />
-          <Property Name="nazwa_zgloszenia" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="szerokosc" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="dlugosc" Type="String" MaxLength="20" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="opis" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="data_rozpoczecia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="data_zakonczenia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="nazwa_zgloszenia" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="szmalDBEvents" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="zgloszenies" EntityType="Self.zgloszenie" />
         </EntityContainer>
       </Schema>
@@ -54,11 +55,10 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="szmalDBEventStoreContainer" CdmEntityContainer="szmalDBEvents">
+        <EntityContainerMapping StorageEntityContainer="szmalDBEventStoreContainer" CdmEntityContainer="Entities">
           <EntitySetMapping Name="zgloszenies">
             <EntityTypeMapping TypeName="szmalDBEvent.zgloszenie">
               <MappingFragment StoreEntitySet="zgloszenie">
-                <ScalarProperty Name="nazwa_zgloszenia" ColumnName="nazwa_zgloszenia" />
                 <ScalarProperty Name="id_zgloszenia" ColumnName="id_zgloszenia" />
                 <ScalarProperty Name="typ_zgloszenia" ColumnName="typ_zgloszenia" />
                 <ScalarProperty Name="adres" ColumnName="adres" />
@@ -66,10 +66,11 @@
                 <ScalarProperty Name="fk_login" ColumnName="fk_login" />
                 <ScalarProperty Name="szerokosc" ColumnName="szerokosc" />
                 <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
-                <ScalarProperty Name="image" ColumnName="image" />
                 <ScalarProperty Name="opis" ColumnName="opis" />
                 <ScalarProperty Name="data_rozpoczecia" ColumnName="data_rozpoczecia" />
                 <ScalarProperty Name="data_zakonczenia" ColumnName="data_zakonczenia" />
+                <ScalarProperty Name="nazwa_zgloszenia" ColumnName="nazwa_zgloszenia" />
+                <ScalarProperty Name="image" ColumnName="image" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
