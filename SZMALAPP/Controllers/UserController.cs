@@ -83,7 +83,8 @@ namespace SZMALAPP.Controllers
 
          void CreatePdf()
         {
-            string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Raport", "raport.cshtml");
+            //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Raport", "raport.cshtml");
+            string path = "~/Views/Raport/Raport.cshtml";
             string html = "";
             using (szmalDBEvents db = new szmalDBEvents())
             {
@@ -94,7 +95,7 @@ namespace SZMALAPP.Controllers
                 }
                 else
                 {
-
+                    ;
                 }
 
             }
@@ -117,7 +118,7 @@ namespace SZMALAPP.Controllers
         [HttpPost]
         public ActionResult AddEvent(zgloszenie ev)
         {
-            chuj chuj 
+            
             using (szmalDBEvents events = new szmalDBEvents())
             {
                 try

@@ -13,10 +13,10 @@ namespace SZMALAPP.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities : DbContext
+    public partial class szmalDBEvents : DbContext
     {
-        public Entities()
-            : base("name=Entities")
+        public szmalDBEvents()
+            : base("name=szmalDBEvents")
         {
         }
     

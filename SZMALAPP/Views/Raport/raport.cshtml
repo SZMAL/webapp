@@ -7,7 +7,7 @@
 <head>
 
     <meta charset="utf-8">
-    <title>Test invoice #101</title>
+    <title>Raport o zdarzeniu</title>
     <style>
 
         .invoice-container {
@@ -74,18 +74,6 @@
                     font-weight: bold;
                 }
 
-        @media only print {
-            .invoice-container table tr.top table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-
-            .invoice-container table tr.information table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
         }
     </style>
     <script>
@@ -109,9 +97,7 @@
                             </td>
                             <td>
                                 Raport o zdarzeniu<br>
-                                <label for="date-start">Data wygenerowania:</label>
-                                <div id="date"></div>
-                                Data wygaśnięcia: February 1, 2017
+                                Data wygenerowania: @DateTime.Now.ToString("yyyy-MM-dd") <br>
                             </td>
                         </tr>
                     </table>
