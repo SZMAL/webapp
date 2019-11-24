@@ -117,6 +117,7 @@ namespace SZMALAPP.Controllers
         [HttpPost]
         public ActionResult AddEvent(zgloszenie ev)
         {
+            chuj chuj 
             using (szmalDBEvents events = new szmalDBEvents())
             {
                 try
