@@ -72,10 +72,8 @@
                 
             </div>
             <div class="form-input-file">
-                <input type="file" id="form-file-id" class="form-file", accept=".jpg,.png,.bmp,.jpeg,.tiff,.gif" />
-                
-                @Html.TextBoxFor(a => a.image, new { @id = "form-file-id", type = "file", @class = "form-file", accept = ".jpg,.png,.bmp,.jpeg,.tiff,.gif"})
-               
+                @Html.TextBoxFor(a => a.image, new { @id = "form-file-id-preview", style="display: none;" })
+                <input type="file" id="form-file-id" class="form-file" accept="".jpg,.png,.bmp,.jpeg,.tiff,.gif"/>
                 <label for="form-file-id">Dodaj zalacznik (JPG, PNG, BMP, GIF, TIFF)</label>
             </div>
             <div class="form-input-file-preview">
@@ -104,7 +102,9 @@
                 reader = new FileReader();
                 reader.onloadend = function () {
                 // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
-                document.getElementById('form-file-preview').setAttribute('src', reader.result);
+                    document.getElementById('form-file-preview').setAttribute('src', reader.result);
+                    document.getElementById("form-file-id-preview").setAttribute('value', reader.result);
+                    alert(document.getElementById('form-file-id-preview').value);
                 var b64 = reader.result.replace(/^data:.+;base64,/, '');
             };
             reader.readAsDataURL(file);
