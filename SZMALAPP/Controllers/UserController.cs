@@ -5,8 +5,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using SZMALAPP.Models;
+using System.Net.Mail;
 using IronPdf;
-
+using System.Net;
 
 namespace SZMALAPP.Controllers
 {
@@ -67,7 +68,27 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
-
+        public void Email(string htmlString)
+        {
+            try
+            {
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress("szmal.wcy@gmail.com");
+                message.To.Add(new MailAddress("chelseaman96@gmail.com"));
+                message.Subject = "Raport o zdarzeniu";
+                message.IsBodyHtml = true;  
+                message.Body = htmlString;
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com"; 
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("szmal.wcy@gmail.com", "ZbyszekStonoga1");
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+            }
+            catch (Exception) { }
+        }
         public  string RenderRazorViewToString(string viewName, object model)
         {
             ViewData.Model = model;
@@ -83,7 +104,6 @@ namespace SZMALAPP.Controllers
 
          void CreatePdf()
         {
-            //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Views", "Raport", "raport.cshtml");
             string path = "~/Views/Raport/Raport.cshtml";
             string html = "";
             using (szmalDBEvents db = new szmalDBEvents())
@@ -99,13 +119,9 @@ namespace SZMALAPP.Controllers
                 }
 
             }
-          
-
-            //var html = System.IO.File.ReadAllText(path);
-
             var htmlToPdf = new HtmlToPdf();
             var pdf = htmlToPdf.RenderHtmlAsPdf(html);
-
+            Email(html);
             var OutputPath =Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData)+"/raport.pdf";
             pdf.SaveAs(OutputPath);
            
@@ -124,7 +140,7 @@ namespace SZMALAPP.Controllers
                 try
                 {
                     CreatePdf();
-                    ev.fk_login = ((uzytkownik)Session["UserID"]).login;
+                    ev.fk_login = ((string)Session["UserID"]);
                     
                     events.zgloszenies.Add(ev);
                     events.SaveChanges();
