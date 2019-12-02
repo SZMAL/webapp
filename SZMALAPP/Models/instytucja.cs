@@ -12,27 +12,23 @@ namespace SZMALAPP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class uzytkownik
+    public partial class instytucja
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public uzytkownik()
+        public instytucja()
         {
-            this.zgloszenies = new HashSet<zgloszenie>();
+            this.uzytkowniks = new HashSet<uzytkownik>();
         }
     
-        public string imie { get; set; }
-        public string nazwisko { get; set; }
-        public string login { get; set; }
-        public Nullable<int> fk_id_instytucji { get; set; }
+        public int id_instytucji { get; set; }
+        public string adres { get; set; }
         public string email { get; set; }
-        public Nullable<System.DateTime> dataUrodzenia { get; set; }
         public string telefon { get; set; }
-        public string rola { get; set; }
-        public string haslo { get; set; }
-        public Nullable<decimal> liczba_punktow { get; set; }
+        public string nazwa_instytucji { get; set; }
+        public Nullable<double> szerokosc { get; set; }
+        public Nullable<double> dlugosc { get; set; }
     
-        public virtual instytucja instytucja { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<zgloszenie> zgloszenies { get; set; }
+        public virtual ICollection<uzytkownik> uzytkowniks { get; set; }
     }
 }

@@ -68,7 +68,7 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
-        public void Email(string htmlString)
+        public void Email(string pdf)
         {
             try
             {
@@ -77,8 +77,9 @@ namespace SZMALAPP.Controllers
                 message.From = new MailAddress("szmal.wcy@gmail.com");
                 message.To.Add(new MailAddress("chelseaman96@gmail.com"));
                 message.Subject = "Raport o zdarzeniu";
-                message.IsBodyHtml = true;  
-                message.Body = htmlString;
+                System.Net.Mail.Attachment attachment;
+                attachment = new System.Net.Mail.Attachment(pdf);
+                message.Attachments.Add(attachment);
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com"; 
                 smtp.EnableSsl = true;
@@ -121,10 +122,11 @@ namespace SZMALAPP.Controllers
             }
             var htmlToPdf = new HtmlToPdf();
             var pdf = htmlToPdf.RenderHtmlAsPdf(html);
-            Email(html);
+            
             var OutputPath =Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData)+"/raport.pdf";
+
             pdf.SaveAs(OutputPath);
-           
+            Email(OutputPath);
             System.Diagnostics.Process.Start(OutputPath);
 
         }

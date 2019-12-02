@@ -6,6 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="ede1ca8951b4442791835b8c916109af" Name="Diagram1">
         <EntityTypeShape EntityType="szmalDBEvent.zgloszenie" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="szmalDBEvent.instytucja" Width="1.5" PointX="0.75" PointY="10.25" />
+        <EntityTypeShape EntityType="szmalDBEvent.uzytkownik" Width="1.5" PointX="0.75" PointY="5.875" />
+        <AssociationConnector Association="szmalDBEvent.instytucja_uzytkownika" />
+        <AssociationConnector Association="szmalDBEvent.wlasciciel_zgloszenia" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

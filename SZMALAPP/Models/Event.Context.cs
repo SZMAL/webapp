@@ -26,5 +26,7 @@ namespace SZMALAPP.Models
         }
     
         public virtual DbSet<zgloszenie> zgloszenies { get; set; }
+        public virtual DbSet<instytucja> instytucjas { get; set; }
+        public virtual DbSet<uzytkownik> uzytkowniks { get; set; }
     }
 }

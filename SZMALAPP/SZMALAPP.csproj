@@ -213,6 +213,7 @@
     <None Include="Properties\PublishProfiles\szmal - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\szmal - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\szmal - Web Deploy1.pubxml" />
+    <Content Include="Views\Home\Error.cshtml" />
     <None Include="Views\Raport\raport.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -244,6 +245,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Event.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\instytucja.cs">
+      <DependentUpon>Event.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\User.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -261,7 +265,7 @@
     </Compile>
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Models\uzytkownik.cs">
-      <DependentUpon>User.tt</DependentUpon>
+      <DependentUpon>Event.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\zgloszenie.cs">
       <DependentUpon>Event.tt</DependentUpon>
