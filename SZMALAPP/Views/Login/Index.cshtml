@@ -1,4 +1,6 @@
-﻿@model SZMALAPP.Models.UserLoginModel
+﻿@model SZMALAPP.Models.BigModel
+
+
 
 @{
     ViewBag.Title = "Login";
@@ -7,157 +9,155 @@
     string classname = "modal";
 
 
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>SZMAL company</title>
+        <meta name="description" content="SZMAL">
+        <meta name="author" content="FilipW">
+        <link rel="icon" href="~/Content/img/icon.png">
+        <link rel="stylesheet" href="~/Content/styles.css" />
 
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>SZMAL company</title>
-    <meta name="description" content="SZMAL">
-    <meta name="author" content="FilipW">
-    <link rel="icon" href="~/Content/img/icon.png">
-    <link rel="stylesheet" href="~/Content/styles.css" />
+        @Scripts.Render("~/Scripts/scripts.js")
+    </head>
 
+    <body>
 
-    @Scripts.Render("~/Scripts/scripts.js")
-</head>
-
-<body>
-
-    <div id="wrapper">
-        <div id="header">
-            <div id="company-name">
-                SZMAL
-            </div>
-        </div>
-        <div id="login-css">
-            <button type="button" class="login-button" onclick="showRegisterPopup()">Rejestracja</button>
-            <button type="button" class="login-button" onclick="showLoginPopup()">Logowanie</button>
-            <button type="button" class="login-button">Gość</button>
-        </div>
-        <div id="content">
-            <div id="box-left">
-                <img src="~/Content/img/logo2.png" />
-                <div id="motto">
-                    Od ludzi dla ludzi. Bądź zawsze na bieżąco. Nie daj się zaskoczyć.
+        <div id="wrapper">
+            <div id="header">
+                <div id="company-name">
+                    SZMAL
                 </div>
             </div>
-            <div id="box-right">
+            <div id="login-css">
+                <button type="button" class="login-button" onclick="showRegisterPopup()">Rejestracja</button>
+                <button type="button" class="login-button" onclick="showLoginPopup()">Logowanie</button>
+                <button type="button" class="login-button">Gość</button>
+            </div>
+            <div id="content">
+                <div id="box-left">
+                    <img src="~/Content/img/logo2.png" />
+                    <div id="motto">
+                        Od ludzi dla ludzi. Bądź zawsze na bieżąco. Nie daj się zaskoczyć.
+                    </div>
+                </div>
+                <div id="box-right">
+                    
+                    <div id="map">
 
-                <div id="map">
 
+                    </div>
 
                 </div>
-                
+                <div style="clear: both;"></div>
             </div>
-            <div style="clear: both;"></div>
         </div>
-    </div>
-    <div id="footer">
-        <span id="rights">
-            SZMAL Company®, All Rights Reserved
-        </span>
-        <button type="button" class="footer-button" onclick="showAboutPopup()">O nas</button>
-        <button type="button" class="footer-button" id="facebook" onclick=openFacebook()>Facebook</button>
-    </div>
-    <script src="~/Scripts/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script type="text/javascript">
-        function LoginFailure(result) {
-            $("#failure-message").show();
-        }
+        <div id="footer">
+            <span id="rights">
+                SZMAL Company®, All Rights Reserved
+            </span>
+            <button type="button" class="footer-button" onclick="showAboutPopup()">O nas</button>
+            <button type="button" class="footer-button" id="facebook" onclick=openFacebook()>Facebook</button>
+        </div>
+        <script src="~/Scripts/jquery-3.4.1.js"></script>
+        <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+        <script type="text/javascript">
+            function LoginFailure(result) {
+                $("#failure-message").show();
+            }
 
-    </script>
+        </script>
 
-    <div id="register-wrapper" class="modal">
-        @using (Ajax.BeginForm("RegisterUser", "Login", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "register-wrapper" }, new { @class = "modal-content animate", role = "form" }))
-        {
-            <div id="register-container">
+        <div id="register-wrapper" class="modal">
+            @using (Ajax.BeginForm("RegisterUser", "Login", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "register-wrapper" }, new { @class = "modal-content animate", role = "form" }))
+            {
+                <div id="register-container">
+                    <div id="register-now">
+                        Zarejestruj się już teraz
+                    </div>
+                    @Html.TextBoxFor(a => a.UserLoginModel.Login, new { @class = "input-box", placeholder = "Login" })
+                    @Html.ValidationMessageFor(a => a.UserLoginModel.Login, "", new { @style = "color:red;font-size:16px;" })
+                    @Html.TextBoxFor(a => a.UserLoginModel.Email, new { @class = "input-box", placeholder = "E-Mail" })
+                    @Html.ValidationMessageFor(a => a.UserLoginModel.Email, "", new { @style = "color:red;font-size:16px;" })
+                    @Html.TextBoxFor(a => a.UserLoginModel.Password, new { @class = "input-box", @type = "password", placeholder = "Hasło" })
+                    @Html.TextBoxFor(a => a.UserLoginModel.ConfirmPassword, new { @class = "input-box", @type = "password", placeholder = "Powtórz Hasło" })
+                    @Html.ValidationMessageFor(a => a.UserLoginModel.ConfirmPassword, "", new { @style = "color:red;font-size:16px;margin-top:4px;margin-bottom:4px;" })
+                    <button type="submit" class="submit-button">Zarejestruj</button>
+                </div>
+            }
+        </div>
+
+        <div id="login-wrapper" class="modal">
+            @if (Model != null)
+            {
+                <script>
+                    $(document).ready(showLoginPopup);
+                </script>
+            }
+
+            @using (Ajax.BeginForm("TryLogin", "Login", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "login-wrapper" }, new { @class = "modal-content animate", role = "form" }))
+            {
+                <div id="login-container">
+                    <div id="register-now">
+                        Zaloguj się
+                    </div>
+                    @Html.TextBoxFor(a => a.UserLoginModel.Login, new { @class = "input-box", placeholder = "Login" })
+                    <div id="failure-message" style="display: none;color:red;font-size:20px;">
+                        Nieprawidłowa nazwa użytkownika lub hasło!!
+                    </div>
+                    @Html.ValidationMessageFor(a => a.UserLoginModel.Login, "", new { @style = "color:red; font-size:16px;margin-top:4px;margin-bottom:4px;" })
+                    @Html.TextBoxFor(a => a.UserLoginModel.Password, new { @class = "input-box", @type = "password", placeholder = "Haslo" })
+                    @Html.ValidationMessageFor(a => a.UserLoginModel.Password, "", new { @style = "color:red; font-size:16px;margin-top:4px;margin-bottom:4px;" })
+                    <input type="submit" value="Zaloguj" class="submit-button" />
+
+                </div>
+            }
+        </div>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+        <div id="about-wrapper" class="modal">
+            <div id="about-container" class="modal-content animate">
                 <div id="register-now">
-                    Zarejestruj się już teraz
+                    O nas
                 </div>
-                @Html.TextBoxFor(a => a.Login, new { @class = "input-box", placeholder = "Login" })
-                @Html.ValidationMessageFor(a => a.Login, "", new { @style = "color:red;font-size:16px;" })
-                @Html.TextBoxFor(a => a.Email, new { @class = "input-box", placeholder = "E-Mail" })
-                @Html.ValidationMessageFor(a => a.Email, "", new { @style = "color:red;font-size:16px;" })
-                @Html.TextBoxFor(a => a.Password, new { @class = "input-box", @type = "password", placeholder = "Hasło" })
-                @Html.TextBoxFor(a => a.ConfirmPassword, new { @class = "input-box", @type = "password", placeholder = "Powtórz Hasło" })
-                @Html.ValidationMessageFor(a => a.ConfirmPassword, "", new { @style = "color:red;font-size:16px;margin-top:4px;margin-bottom:4px;" })
-                <button type="submit" class="submit-button">Zarejestruj</button>
-            </div>
-        }
-    </div>
-
-    <div id="login-wrapper" class="modal">
-        @if (Model != null)
-        {
-            <script>
-                $(document).ready(showLoginPopup);
-            </script>
-        }
-
-        @using (Ajax.BeginForm("TryLogin", "Login", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "login-wrapper" }, new { @class = "modal-content animate", role = "form" }))
-        {
-            <div id="login-container">
-                <div id="register-now">
-                    Zaloguj się
+                <div id="about">
+                    Projekt SZMAL realizowany jest przez grupę pasjonatów:
+                    <div class="person">- Radosław Kister - Database Designer</div>
+                    <div class="person">- Bartosz Konecki - Software Engeneer</div>
+                    <div class="person">- Elwira Socha - Business Designer</div>
+                    <div class="person">- Rafał Twarowski - UX Designer</div>
+                    <div class="person">- Filip Woźniak - Web Content Developer</div>
+                    SZMAL jest w cały czas rozwijany, wciąż w wersji roboczej (pre-alpha).<br />
+                    Projekt finansowany z własnych środków.
                 </div>
-                @Html.TextBoxFor(a => a.Login, new { @class = "input-box", placeholder = "Login" })
-                <div id="failure-message" style="display: none;color:red;font-size:20px;">
-                    Nieprawidłowa nazwa użytkownika lub hasło!!
-                </div>
-                @Html.ValidationMessageFor(a => a.Login, "", new { @style = "color:red; font-size:16px;margin-top:4px;margin-bottom:4px;" })
-                @Html.TextBoxFor(a => a.Password, new { @class = "input-box", @type = "password", placeholder = "Haslo" })
-                @Html.ValidationMessageFor(a => a.Password, "", new { @style = "color:red; font-size:16px;margin-top:4px;margin-bottom:4px;" })
-                <input type="submit" value="Zaloguj" class="submit-button" />
-
-            </div>
-        }
-    </div>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-    <div id="about-wrapper" class="modal">
-        <div id="about-container" class="modal-content animate">
-            <div id="register-now">
-                O nas
-            </div>
-            <div id="about">
-                Projekt SZMAL realizowany jest przez grupę pasjonatów:
-                <div class="person">- Radosław Kister - Database Designer</div>
-                <div class="person">- Bartosz Konecki - Software Engeneer</div>
-                <div class="person">- Elwira Socha - Business Designer</div>
-                <div class="person">- Rafał Twarowski - UX Designer</div>
-                <div class="person">- Filip Woźniak - Web Content Developer</div>
-                SZMAL jest w cały czas rozwijany, wciąż w wersji roboczej (pre-alpha).<br />
-                Projekt finansowany z własnych środków.
             </div>
         </div>
-    </div>
 
-    <script>
+        <script>
+          
+            var modalRegister = document.getElementById('register-wrapper');
+            var modalLogin = document.getElementById('login-wrapper');
+            var modalAbout = document.getElementById('about-wrapper');
+            window.onclick = function (event) {
+                if (event.target == modalRegister) {
+                    modalRegister.style.display = "none";
+                }
+                else if (event.target == modalLogin) {
+                    modalLogin.style.display = "none";
+                }
+                else if (event.target == modalAbout) {
+                    modalAbout.style.display = "none";
+                }
+            }
+            window.onload = getLocation();
 
-        var modalRegister = document.getElementById('register-wrapper');
-        var modalLogin = document.getElementById('login-wrapper');
-        var modalAbout = document.getElementById('about-wrapper');
-        window.onclick = function (event) {
-            if (event.target == modalRegister) {
-                modalRegister.style.display = "none";
-            }
-            else if (event.target == modalLogin) {
-                modalLogin.style.display = "none";
-            }
-            else if (event.target == modalAbout) {
-                modalAbout.style.display = "none";
-            }
-        }
-        window.onload = getLocation();
-      
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocation">
-    </script>
-</body>
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocation">
+        </script>
+    </body>
 
 
 }

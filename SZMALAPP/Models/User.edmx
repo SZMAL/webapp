@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="szmaldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="szmaldbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="uzytkownik">
           <Key>
             <PropertyRef Name="login" />
@@ -12,6 +12,7 @@
           <Property Name="imie" Type="nvarchar" MaxLength="50" />
           <Property Name="nazwisko" Type="nvarchar" MaxLength="50" />
           <Property Name="login" Type="nchar" MaxLength="20" Nullable="false" />
+          <Property Name="fk_id_instytucji" Type="int" />
           <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="dataUrodzenia" Type="date" />
           <Property Name="telefon" Type="nchar" MaxLength="15" />
@@ -20,10 +21,9 @@
           <Property Name="liczba_punktow" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityContainer Name="szmaldbModelStoreContainer">
-          <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="szmaldbModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -40,6 +40,7 @@
           <Property Name="rola" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <Property Name="haslo" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="liczba_punktow" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="fk_id_instytucji" Type="Int32" />
         </EntityType>
         <EntityContainer Name="szmaldbEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="uzytkowniks" EntityType="Self.uzytkownik" />
@@ -53,6 +54,7 @@
           <EntitySetMapping Name="uzytkowniks">
             <EntityTypeMapping TypeName="szmaldbModel.uzytkownik">
               <MappingFragment StoreEntitySet="uzytkownik">
+                <ScalarProperty Name="fk_id_instytucji" ColumnName="fk_id_instytucji" />
                 <ScalarProperty Name="imie" ColumnName="imie" />
                 <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
                 <ScalarProperty Name="login" ColumnName="login" />

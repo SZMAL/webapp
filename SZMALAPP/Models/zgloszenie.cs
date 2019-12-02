@@ -26,7 +26,5 @@ namespace SZMALAPP.Models
         public System.DateTime data_zakonczenia { get; set; }
         public string nazwa_zgloszenia { get; set; }
         public string image { get; set; }
-    
-        public virtual uzytkownik uzytkownik { get; set; }
     }
 }

@@ -12,15 +12,12 @@ namespace SZMALAPP.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class instytucja
+    public partial class sysdiagram
     {
-        public int id_instytucji { get; set; }
-        public string adres { get; set; }
-        public string email { get; set; }
-        public string telefon { get; set; }
-        public string nazwa_instytucji { get; set; }
-        public string szerokosc { get; set; }
-        public string dlugosc { get; set; }
-        public string działalnosc { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

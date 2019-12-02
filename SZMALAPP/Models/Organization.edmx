@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="szmalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="instytucja">
+          <Key>
+            <PropertyRef Name="id_instytucji" />
+          </Key>
+          <Property Name="id_instytucji" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adres" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="telefon" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="nazwa_instytucji" Type="nchar" MaxLength="30" Nullable="false" />
+          <Property Name="szerokosc" Type="nchar" MaxLength="20" />
+          <Property Name="dlugosc" Type="nchar" MaxLength="20" />
+          <Property Name="działalnosc" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="szmalDBModelStoreContainer">
+          <EntitySet Name="instytucja" EntityType="Self.instytucja" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="szmalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="instytucja">
+          <Key>
+            <PropertyRef Name="id_instytucji" />
+          </Key>
+          <Property Name="id_instytucji" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adres" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="telefon" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="nazwa_instytucji" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="szerokosc" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="dlugosc" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="działalnosc" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="szmalDBOrganizations" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="instytucjas" EntityType="Self.instytucja" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="szmalDBModelStoreContainer" CdmEntityContainer="szmalDBOrganizations">
+          <EntitySetMapping Name="instytucjas">
+            <EntityTypeMapping TypeName="szmalDBModel.instytucja">
+              <MappingFragment StoreEntitySet="instytucja">
+                <ScalarProperty Name="id_instytucji" ColumnName="id_instytucji" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="nazwa_instytucji" ColumnName="nazwa_instytucji" />
+                <ScalarProperty Name="szerokosc" ColumnName="szerokosc" />
+                <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
+                <ScalarProperty Name="działalnosc" ColumnName="działalnosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

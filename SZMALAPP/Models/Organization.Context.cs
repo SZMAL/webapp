@@ -13,10 +13,10 @@ namespace SZMALAPP.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class szmalDBEvents : DbContext
+    public partial class szmalDBOrganizations : DbContext
     {
-        public szmalDBEvents()
-            : base("name=szmalDBEvents")
+        public szmalDBOrganizations()
+            : base("name=szmalDBOrganizations")
         {
         }
     
@@ -25,7 +25,6 @@ namespace SZMALAPP.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<zgloszenie> zgloszenies { get; set; }
+        public virtual DbSet<instytucja> instytucjas { get; set; }
     }
 }

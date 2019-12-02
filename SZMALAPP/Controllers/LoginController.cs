@@ -23,11 +23,11 @@ namespace SZMALAPP.Controllers
         }
         
         [HttpPost]
-        public ActionResult LoginUser(UserLoginModel objUser)
+        public ActionResult LoginUser(BigModel objUser)
         {
             using (szmaldbEntities db = new szmaldbEntities())
             {
-                var obj = db.uzytkowniks.Where(a => a.login.Equals(objUser.Login) && a.haslo.Equals(objUser.Password)).FirstOrDefault();
+                var obj = db.uzytkowniks.Where(a => a.login.Equals(objUser.UserLoginModel.Login) && a.haslo.Equals(objUser.UserLoginModel.Password)).FirstOrDefault();
 
                 if (obj == null)
                 {
@@ -66,17 +66,17 @@ namespace SZMALAPP.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> TryLogin(UserLoginModel user)
+        public async Task<ActionResult> TryLogin(BigModel user)
         {
 
 
             {
                 using (szmaldbEntities db = new szmaldbEntities())
                 {
-                    if (db.uzytkowniks.Any(u => u.login == user.Login && u.haslo == user.Password))
+                    if (db.uzytkowniks.Any(u => u.login == user.UserLoginModel.Login && u.haslo == user.UserLoginModel.Password))
                     {
-                        Session["UserID"] = user.Login.ToString();
-                        return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.Login));
+                        Session["UserID"] = user.UserLoginModel.Login.ToString();
+                        return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.UserLoginModel.Login));
                     }
                     else
                     {
@@ -93,19 +93,19 @@ namespace SZMALAPP.Controllers
 
 
         [HttpPost]
-        public ActionResult RegisterUser(UserLoginModel objUser)
+        public ActionResult RegisterUser(BigModel objUser)
         {
             if (ModelState.IsValid)
             {
                 using (szmaldbEntities db = new szmaldbEntities())
                 {
-                    var obj = db.uzytkowniks.Where(a => a.imie.Equals(objUser.Login) && a.haslo.Equals(objUser.Password)).FirstOrDefault();
+                    var obj = db.uzytkowniks.Where(a => a.imie.Equals(objUser.UserLoginModel.Login) && a.haslo.Equals(objUser.UserLoginModel.Password)).FirstOrDefault();
                     if (obj == null)
                     {
                         uzytkownik u = new uzytkownik();
-                        u.login = objUser.Login;
-                        u.haslo = objUser.Password;
-                        u.email = objUser.Email;
+                        u.login = objUser.UserLoginModel.Login;
+                        u.haslo = objUser.UserLoginModel.Password;
+                        u.email = objUser.UserLoginModel.Email;
                         db.uzytkowniks.Add(u);
                         db.SaveChanges();
                     }

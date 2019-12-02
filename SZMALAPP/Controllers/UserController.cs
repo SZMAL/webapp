@@ -8,6 +8,8 @@ using SZMALAPP.Models;
 using System.Net.Mail;
 using IronPdf;
 using System.Net;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace SZMALAPP.Controllers
 {
@@ -102,14 +104,52 @@ namespace SZMALAPP.Controllers
                 return sw.GetStringBuilder().ToString();
             }
         }
+        /*
+         0 - czeka do zatwierdzenia
+         1 - zatwierdzone
+         
+         */
+         public double degreesToRadians(double degrees)
+        {
+          
 
-         void CreatePdf()
+            return degrees * Math.PI / 180;
+        }
+        public double getDistance(double dlugoscZgloszenie , double szerokoscZgloszenie , double dlugoscFirma, double szerokoscFirma)
+        {
+            double distance;
+            int R = 6378137;
+            double dSzerokosc = degreesToRadians(szerokoscFirma - szerokoscZgloszenie );
+            double dDlugosc  = degreesToRadians( dlugoscFirma - dlugoscZgloszenie);
+            double a = Math.Sin(dSzerokosc / 2) * Math.Sin(dSzerokosc / 2) + Math.Cos(degreesToRadians(szerokoscZgloszenie)) *
+                Math.Cos(degreesToRadians(szerokoscZgloszenie)) * Math.Sin(dDlugosc / 2) * Math.Sin(dDlugosc / 2);
+
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            distance = R * c;
+            
+            return distance;
+        }
+         void CreatePdf(zgloszenie ev)
         {
             string path = "~/Views/Raport/Raport.cshtml";
             string html = "";
+            string typ_zgloszenia;
+            double dlugoscZgloszenie = 0, szerokoscZgloszenie = 0;
+            NumberFormatInfo provider = new NumberFormatInfo();
+            provider.NumberDecimalSeparator = ".";
             using (szmalDBEvents db = new szmalDBEvents())
             {
-                var obj = db.zgloszenies.First(a => a.id_zgloszenia.Equals(1));
+                var obj = db.zgloszenies.First(a => a.dlugosc.Equals(ev.dlugosc));
+                typ_zgloszenia = ev.typ_zgloszenia;
+                try
+                {
+                    dlugoscZgloszenie = Convert.ToDouble(ev.dlugosc,provider);
+                    szerokoscZgloszenie = Convert.ToDouble(ev.szerokosc,provider);
+                }
+                catch(Exception e)
+                {
+                    Debug.Write(e.Message);
+                }
                 if(obj!=null)
                 {
                     html = RenderRazorViewToString(path, obj);
@@ -120,6 +160,21 @@ namespace SZMALAPP.Controllers
                 }
 
             }
+            using (szmalDBOrganizations db = new szmalDBOrganizations())
+            {
+                try
+                {
+                    var obj = db.instytucjas.Select(b => b).Where(c => c.działalnosc.Equals(typ_zgloszenia)).
+                        Min(a => getDistance(dlugoscZgloszenie, szerokoscZgloszenie, Convert.ToDouble(a.dlugosc, provider), Convert.ToDouble(a.szerokosc, provider)));
+                }
+                catch (Exception e)
+                {
+                    Debug.Write(e.Message);
+                }
+                    //var obj = db.instytucja.First(a => a.id_instytucji.Equals(2));
+                
+            }
+
             var htmlToPdf = new HtmlToPdf();
             var pdf = htmlToPdf.RenderHtmlAsPdf(html);
             
@@ -141,11 +196,13 @@ namespace SZMALAPP.Controllers
             {
                 try
                 {
-                    CreatePdf();
-                    ev.fk_login = ((string)Session["UserID"]);
                     
+                    ev.fk_login = ((string)Session["UserID"]);
+                    ev.status = 0;
+                   
                     events.zgloszenies.Add(ev);
                     events.SaveChanges();
+                    CreatePdf(ev);
                 }
                 catch (Exception e)
                 {

@@ -132,6 +132,16 @@
       <DependentUpon>Event.edmx</DependentUpon>
       <LastGenOutput>Event.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\Organization.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Organization.edmx</DependentUpon>
+      <LastGenOutput>Organization.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Organization.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Organization.edmx</DependentUpon>
+      <LastGenOutput>Organization.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -162,6 +172,13 @@
     </EntityDeploy>
     <Content Include="Models\Event.edmx.diagram">
       <DependentUpon>Event.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Organization.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Organization.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Organization.edmx.diagram">
+      <DependentUpon>Organization.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -225,11 +242,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BigModel.cs" />
     <Compile Include="Models\Event.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -246,6 +265,24 @@
       <DependentUpon>Event.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\instytucja.cs">
+      <DependentUpon>Organization.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Organization.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Organization.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Organization.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Organization.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Organization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Organization.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Event.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.Context.cs">
@@ -263,9 +300,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>User.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\EventToShowModel.cs" />
     <Compile Include="Models\UserLoginModel.cs" />
     <Compile Include="Models\uzytkownik.cs">
-      <DependentUpon>Event.tt</DependentUpon>
+      <DependentUpon>User.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\zgloszenie.cs">
       <DependentUpon>Event.tt</DependentUpon>

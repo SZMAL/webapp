@@ -4,33 +4,16 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="szmalDBEvent.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="instytucja">
+    <Schema Namespace="szmalDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
           <Key>
-            <PropertyRef Name="id_instytucji" />
+            <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="id_instytucji" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="adres" Type="nchar" MaxLength="100" Nullable="false" />
-          <Property Name="email" Type="nchar" MaxLength="30" Nullable="false" />
-          <Property Name="telefon" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="nazwa_instytucji" Type="nchar" MaxLength="30" Nullable="false" />
-          <Property Name="szerokosc" Type="float" />
-          <Property Name="dlugosc" Type="float" />
-        </EntityType>
-        <EntityType Name="uzytkownik">
-          <Key>
-            <PropertyRef Name="login" />
-          </Key>
-          <Property Name="imie" Type="nvarchar" MaxLength="50" />
-          <Property Name="nazwisko" Type="nvarchar" MaxLength="50" />
-          <Property Name="login" Type="nchar" MaxLength="20" Nullable="false" />
-          <Property Name="fk_id_instytucji" Type="int" />
-          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="dataUrodzenia" Type="date" />
-          <Property Name="telefon" Type="nchar" MaxLength="15" />
-          <Property Name="rola" Type="nchar" MaxLength="10" />
-          <Property Name="haslo" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="liczba_punktow" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="zgloszenie">
           <Key>
@@ -49,47 +32,24 @@
           <Property Name="nazwa_zgloszenia" Type="nchar" MaxLength="30" Nullable="false" />
           <Property Name="image" Type="nchar" MaxLength="1000" />
         </EntityType>
-        <Association Name="instytucja_uzytkownika">
-          <End Role="instytucja" Type="Self.instytucja" Multiplicity="0..1" />
-          <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="instytucja">
-              <PropertyRef Name="id_instytucji" />
-            </Principal>
-            <Dependent Role="uzytkownik">
-              <PropertyRef Name="fk_id_instytucji" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="wlasciciel_zgloszenia">
-          <End Role="uzytkownik" Type="Self.uzytkownik" Multiplicity="1" />
-          <End Role="zgloszenie" Type="Self.zgloszenie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="uzytkownik">
-              <PropertyRef Name="login" />
-            </Principal>
-            <Dependent Role="zgloszenie">
-              <PropertyRef Name="fk_login" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="szmalDBEventStoreContainer">
-          <EntitySet Name="instytucja" EntityType="Self.instytucja" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="uzytkownik" EntityType="Self.uzytkownik" Schema="dbo" store:Type="Tables" />
+        <EntityContainer Name="szmalDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="zgloszenie" EntityType="Self.zgloszenie" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="instytucja_uzytkownika" Association="Self.instytucja_uzytkownika">
-            <End Role="instytucja" EntitySet="instytucja" />
-            <End Role="uzytkownik" EntitySet="uzytkownik" />
-          </AssociationSet>
-          <AssociationSet Name="wlasciciel_zgloszenia" Association="Self.wlasciciel_zgloszenia">
-            <End Role="uzytkownik" EntitySet="uzytkownik" />
-            <End Role="zgloszenie" EntitySet="zgloszenie" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="szmalDBEvent" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="szmalDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="zgloszenie">
           <Key>
             <PropertyRef Name="id_zgloszenia" />
@@ -106,83 +66,30 @@
           <Property Name="data_zakonczenia" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="nazwa_zgloszenia" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="image" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="uzytkownik" Relationship="szmalDBEvent.wlasciciel_zgloszenia" FromRole="zgloszenie" ToRole="uzytkownik" />
         </EntityType>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="szmalDBEvents" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="zgloszenies" EntityType="Self.zgloszenie" />
-          <EntitySet Name="instytucjas" EntityType="szmalDBEvent.instytucja" />
-          <EntitySet Name="uzytkowniks" EntityType="szmalDBEvent.uzytkownik" />
-          <AssociationSet Name="instytucja_uzytkownika" Association="szmalDBEvent.instytucja_uzytkownika">
-            <End Role="instytucja" EntitySet="instytucjas" />
-            <End Role="uzytkownik" EntitySet="uzytkowniks" />
-          </AssociationSet>
-          <AssociationSet Name="wlasciciel_zgloszenia" Association="szmalDBEvent.wlasciciel_zgloszenia">
-            <End Role="uzytkownik" EntitySet="uzytkowniks" />
-            <End Role="zgloszenie" EntitySet="zgloszenies" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="instytucja">
-          <Key>
-            <PropertyRef Name="id_instytucji" />
-          </Key>
-          <Property Name="id_instytucji" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="adres" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="telefon" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="nazwa_instytucji" Type="String" Nullable="false" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="szerokosc" Type="Double" />
-          <Property Name="dlugosc" Type="Double" />
-          <NavigationProperty Name="uzytkowniks" Relationship="szmalDBEvent.instytucja_uzytkownika" FromRole="instytucja" ToRole="uzytkownik" />
-        </EntityType>
-        <EntityType Name="uzytkownik">
-          <Key>
-            <PropertyRef Name="login" />
-          </Key>
-          <Property Name="imie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="login" Type="String" Nullable="false" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="fk_id_instytucji" Type="Int32" />
-          <Property Name="email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="dataUrodzenia" Type="DateTime" Precision="0" />
-          <Property Name="telefon" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
-          <Property Name="rola" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="haslo" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="liczba_punktow" Type="Decimal" Precision="18" Scale="0" />
-          <NavigationProperty Name="instytucja" Relationship="szmalDBEvent.instytucja_uzytkownika" FromRole="uzytkownik" ToRole="instytucja" />
-          <NavigationProperty Name="zgloszenies" Relationship="szmalDBEvent.wlasciciel_zgloszenia" FromRole="uzytkownik" ToRole="zgloszenie" />
-        </EntityType>
-        <Association Name="instytucja_uzytkownika">
-          <End Type="szmalDBEvent.instytucja" Role="instytucja" Multiplicity="0..1" />
-          <End Type="szmalDBEvent.uzytkownik" Role="uzytkownik" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="instytucja">
-              <PropertyRef Name="id_instytucji" />
-            </Principal>
-            <Dependent Role="uzytkownik">
-              <PropertyRef Name="fk_id_instytucji" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="wlasciciel_zgloszenia">
-          <End Type="szmalDBEvent.uzytkownik" Role="uzytkownik" Multiplicity="1" />
-          <End Type="szmalDBEvent.zgloszenie" Role="zgloszenie" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="uzytkownik">
-              <PropertyRef Name="login" />
-            </Principal>
-            <Dependent Role="zgloszenie">
-              <PropertyRef Name="fk_login" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="szmalDBEventStoreContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="szmalDBModelStoreContainer" CdmEntityContainer="szmalDBEvents">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="szmalDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="zgloszenies">
-            <EntityTypeMapping TypeName="szmalDBEvent.zgloszenie">
+            <EntityTypeMapping TypeName="szmalDBModel.zgloszenie">
               <MappingFragment StoreEntitySet="zgloszenie">
                 <ScalarProperty Name="id_zgloszenia" ColumnName="id_zgloszenia" />
                 <ScalarProperty Name="typ_zgloszenia" ColumnName="typ_zgloszenia" />
@@ -196,35 +103,6 @@
                 <ScalarProperty Name="data_zakonczenia" ColumnName="data_zakonczenia" />
                 <ScalarProperty Name="nazwa_zgloszenia" ColumnName="nazwa_zgloszenia" />
                 <ScalarProperty Name="image" ColumnName="image" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="instytucjas">
-            <EntityTypeMapping TypeName="szmalDBEvent.instytucja">
-              <MappingFragment StoreEntitySet="instytucja">
-                <ScalarProperty Name="dlugosc" ColumnName="dlugosc" />
-                <ScalarProperty Name="szerokosc" ColumnName="szerokosc" />
-                <ScalarProperty Name="nazwa_instytucji" ColumnName="nazwa_instytucji" />
-                <ScalarProperty Name="telefon" ColumnName="telefon" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="adres" ColumnName="adres" />
-                <ScalarProperty Name="id_instytucji" ColumnName="id_instytucji" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="uzytkowniks">
-            <EntityTypeMapping TypeName="szmalDBEvent.uzytkownik">
-              <MappingFragment StoreEntitySet="uzytkownik">
-                <ScalarProperty Name="liczba_punktow" ColumnName="liczba_punktow" />
-                <ScalarProperty Name="haslo" ColumnName="haslo" />
-                <ScalarProperty Name="rola" ColumnName="rola" />
-                <ScalarProperty Name="telefon" ColumnName="telefon" />
-                <ScalarProperty Name="dataUrodzenia" ColumnName="dataUrodzenia" />
-                <ScalarProperty Name="email" ColumnName="email" />
-                <ScalarProperty Name="fk_id_instytucji" ColumnName="fk_id_instytucji" />
-                <ScalarProperty Name="login" ColumnName="login" />
-                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
-                <ScalarProperty Name="imie" ColumnName="imie" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
