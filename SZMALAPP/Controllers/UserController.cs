@@ -10,6 +10,8 @@ using IronPdf;
 using System.Net;
 using System.Diagnostics;
 using System.Globalization;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace SZMALAPP.Controllers
 {
@@ -77,6 +79,23 @@ namespace SZMALAPP.Controllers
         {
             try
             {
+                var apiKey = System.Environment.GetEnvironmentVariable("API_KEY");
+                var client = new SendGridClient(apiKey);
+                var msg = new SendGridMessage()
+                {
+                    From = new EmailAddress("szmal.wcy@gmail.com", "SZMAL"),
+                    Subject = "Raport o zdarzeniu",
+                    PlainTextContent = "Przesłano raport o zdarzeniu, pozdrawiamy Zespół SZMAL",
+                    HtmlContent = "<strong>Przesłano raport o zdarzeniu, pozdrawiamy Zespół SZMALstrong>"
+                };
+                var bytes = System.IO.File.ReadAllBytes(pdf);
+                var file = Convert.ToBase64String(bytes);
+                msg.AddAttachment("raport.pdf", file);
+
+                msg.AddTo(new EmailAddress("chelseaman96@gmail.com", "Organizacja"));
+                var response = client.SendEmailAsync(msg);
+
+                /*
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress("szmal.wcy@gmail.com");
@@ -92,6 +111,8 @@ namespace SZMALAPP.Controllers
                 smtp.Credentials = new NetworkCredential("szmal.wcy@gmail.com", "ZbyszekStonoga1");
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
+                 */
+
             }
             catch (Exception) { }
         }
@@ -119,20 +140,22 @@ namespace SZMALAPP.Controllers
         public double getDistance(double dlugoscZgloszenie , double szerokoscZgloszenie , double dlugoscFirma, double szerokoscFirma)
         {
             double distance;
-            int R = 6378137;
+            double R = 6371d;
             double dSzerokosc = degreesToRadians(szerokoscFirma - szerokoscZgloszenie );
             double dDlugosc  = degreesToRadians( dlugoscFirma - dlugoscZgloszenie);
-            double a = Math.Sin(dSzerokosc / 2) * Math.Sin(dSzerokosc / 2) + Math.Cos(degreesToRadians(szerokoscZgloszenie)) *
-                Math.Cos(degreesToRadians(szerokoscFirma)) * Math.Sin(dDlugosc / 2) * Math.Sin(dDlugosc / 2);
+            dSzerokosc = Math.Abs(dSzerokosc);
+            dDlugosc = Math.Abs(dDlugosc);
+            double a = Math.Sin(dSzerokosc / 2d) * Math.Sin(dSzerokosc / 2d) + Math.Cos(degreesToRadians(szerokoscZgloszenie)) *
+                Math.Cos(degreesToRadians(szerokoscFirma)) * Math.Sin(dDlugosc / 2d) * Math.Sin(dDlugosc / 2d);
 
-            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+            double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1d - a));
             distance = R * c;
             
             return distance;
         }
          void CreatePdf(zgloszenie ev)
         {
-            string path = "~/Views/Raport/Raport.cshtml";
+            string path = "~/Views/Raport/raport.cshtml";
             string html = "";
             string typ_zgloszenia;
             double dlugoscZgloszenie = 0, szerokoscZgloszenie = 0;
@@ -205,6 +228,7 @@ namespace SZMALAPP.Controllers
                     return View("~/Views/Home/Error.cshtml", e.Message);
                 }
             }
+           
 
             return View("~/Views/Home/Yours.cshtml", true);
         }
