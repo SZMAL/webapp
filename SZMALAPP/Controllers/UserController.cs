@@ -75,24 +75,24 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
-        public void Email(string pdf)
+        public void Email(string pdf, string email)
         {
             try
             {
-                var apiKey = System.Environment.GetEnvironmentVariable("API_KEY");
+                var apiKey = "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";
                 var client = new SendGridClient(apiKey);
                 var msg = new SendGridMessage()
                 {
                     From = new EmailAddress("szmal.wcy@gmail.com", "SZMAL"),
                     Subject = "Raport o zdarzeniu",
                     PlainTextContent = "Przesłano raport o zdarzeniu, pozdrawiamy Zespół SZMAL",
-                    HtmlContent = "<strong>Przesłano raport o zdarzeniu, pozdrawiamy Zespół SZMALstrong>"
+                    HtmlContent = "<strong>Przesłano raport o zdarzeniu, <br>pozdrawiamy Zespół SZMAL<strong>"
                 };
                 var bytes = System.IO.File.ReadAllBytes(pdf);
                 var file = Convert.ToBase64String(bytes);
                 msg.AddAttachment("raport.pdf", file);
 
-                msg.AddTo(new EmailAddress("chelseaman96@gmail.com", "Organizacja"));
+                msg.AddTo(new EmailAddress(email, "Organizacja"));
                 var response = client.SendEmailAsync(msg);
 
                 /*
@@ -193,13 +193,14 @@ namespace SZMALAPP.Controllers
             }
             if(obj!=null)
             html = RenderRazorViewToString(path, new BigModelRaport() { instytucja= obj.First(), zgloszenie=objZgloszenie });
+            string sendto = obj.First().email;
             var htmlToPdf = new HtmlToPdf();
             var pdf = htmlToPdf.RenderHtmlAsPdf(html);
             
             var OutputPath =Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData)+"/raport.pdf";
 
             pdf.SaveAs(OutputPath);
-            Email(OutputPath);
+            Email(OutputPath, sendto);
             System.Diagnostics.Process.Start(OutputPath);
             db.Dispose();
             db1.Dispose();
