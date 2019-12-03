@@ -25,6 +25,6 @@ namespace SZMALAPP.Models
         public System.DateTime data_rozpoczecia { get; set; }
         public System.DateTime data_zakonczenia { get; set; }
         public string nazwa_zgloszenia { get; set; }
-        public string image { get; set; }
+        public byte[] image { get; set; }
     }
 }

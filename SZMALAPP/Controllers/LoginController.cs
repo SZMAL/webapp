@@ -19,7 +19,11 @@ namespace SZMALAPP.Controllers
         // GET: Logins
         public ActionResult Index()
         {
-            return View("Index");
+            szmalDBEvents db = new szmalDBEvents();
+            UserLoginModel userLoginModel = new UserLoginModel();
+            var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
+            
+            return View("Index",bigmodel);
         }
         
         [HttpPost]
@@ -53,23 +57,18 @@ namespace SZMALAPP.Controllers
         [HttpPost]
         public JsonResult UserExists(string Login)
         {
-            
             using (szmaldbEntities db = new szmaldbEntities())
             {
                if( db.uzytkowniks.Any(u=>u.login==Login))
                     return Json(false);
                else return Json(true);
             }
-                
-
         }
 
 
         [HttpPost]
         public async Task<ActionResult> TryLogin(BigModel user)
         {
-
-
             {
                 using (szmaldbEntities db = new szmaldbEntities())
                 {

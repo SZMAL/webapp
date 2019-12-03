@@ -1,7 +1,9 @@
-﻿@model SZMALAPP.Models.zgloszenie
+﻿@model SZMALAPP.Models.BigModelRaport
 @{
+    ViewBag.Title = "Raport";
     Layout = null;
 }
+
 <!doctype html>
 <html>
 <head>
@@ -73,7 +75,6 @@
                     border-top: 2px solid #eee;
                     font-weight: bold;
                 }
-
         }
     </style>
     <script>
@@ -116,9 +117,9 @@
                                 <br>
                                 <br>
                                 <b>
-                                    Sławex sp. z o.o.<br>
-                                    adres<br>
-                                    mirex@slawex.pl
+                                    @Model.instytucja.nazwa_instytucji<br>
+                                    @Model.instytucja.adres<br>
+                                    @Model.instytucja.email
                                 </b>
                             </td>
                         </tr>
@@ -149,14 +150,14 @@
             </tr>
 
             <tr class="item">
-                <td>@Model.nazwa_zgloszenia</td>
-                <td>@Model.typ_zgloszenia</td>
-                <td>@Model.opis</td>
-                <td>@Model.adres</td>
-                <td>@Model.data_rozpoczecia</td>
-                <td>@Model.data_zakonczenia</td>
+                <td>@Model.zgloszenie.nazwa_zgloszenia</td>
+                <td>@Model.zgloszenie.typ_zgloszenia</td>
+                <td>@Model.zgloszenie.opis</td>
+                <td>@Model.zgloszenie.adres</td>
+                <td>@Model.zgloszenie.data_rozpoczecia</td>
+                <td>@Model.zgloszenie.data_zakonczenia</td>
             </tr>
-            
+
         </table>
     </div>
 

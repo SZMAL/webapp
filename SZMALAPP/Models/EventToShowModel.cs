@@ -10,6 +10,7 @@ namespace SZMALAPP.Models
 
         public string dlugosc { get; set; }
         public string szerokosc { get; set; }
-        
+      
+
     }
 }

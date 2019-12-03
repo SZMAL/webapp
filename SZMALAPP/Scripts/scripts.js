@@ -16,65 +16,7 @@ function openFacebook() {
     win.focus();
 }
 
-function getLocation() {
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
-    }
-    else {
-        x.innerHTML = "Geolokalizacja nie jest wpierana przez przegl¹darkê!";
-    }
-}
-
-function showPosition(position) {
-
-
-    // Definiujemy obiekt przechowuj¹cy nasze po³o¿enie...
-    var centerLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
-
-    // Ustawiamy punkt centralny mapy na nasz¹ obecn¹ lokalizacjê
-    var map = new google.maps.Map(
-        document.getElementById('map'), { zoom: 14, center: centerLocation, mapTypeControl: false });
-    var southWest = new google.maps.LatLng(52.242399, 20.874975);
-    var northEast = new google.maps.LatLng(52.258082, 20.912744);
-    var lngSpan = northEast.lng() - southWest.lng();
-    var latSpan = northEast.lat() - southWest.lat();
-    // Oznaczamy nasz punkt za pomoc¹ markera
-    var iconBase = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
-
-
-
-
-    //!!!!!BARTEK!!!!!! daj mi tutaj jakiœ vector albo liste zg³oszeñ z bazy. Najlepiej tylko tych potwierdzonych
-
-
-
-
-    for (var i = 1; i < 5; i++) {
-        // init markers
-        var marker = new google.maps.Marker({
-            position: new google.maps.LatLng(southWest.lat() + latSpan * Math.random(), southWest.lng() + lngSpan * Math.random()),
-            map: map,
-            title: 'Zobacz szczegó³y',
-            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-        });
-
-        // process multiple info windows
-        (function (marker, i) {
-            // add click event
-            google.maps.event.addListener(marker, 'click', function () {
-
-                infowindow = new google.maps.InfoWindow({
-                    content: 'Jestem tutaj',
-
-                });
-
-                infowindow.open(map, marker);
-            });
-        })(marker, i);
-    }
-
-}
 
 function getLocationToChoosePlace() {
 

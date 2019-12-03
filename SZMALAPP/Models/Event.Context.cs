@@ -25,7 +25,6 @@ namespace SZMALAPP.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<zgloszenie> zgloszenies { get; set; }
     }
 }

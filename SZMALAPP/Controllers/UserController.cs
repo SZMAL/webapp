@@ -64,7 +64,10 @@ namespace SZMALAPP.Controllers
             return View("~/Views/Home/Yours.cshtml",u);
         }
 
-
+        public ActionResult Raport()
+        {
+            return View("~/Views/Raport/raport.cshtml");
+        }
         // GET: Statystyki twoje
         public ActionResult YoursStats(uzytkownik u)
         {
@@ -111,9 +114,7 @@ namespace SZMALAPP.Controllers
          */
          public double degreesToRadians(double degrees)
         {
-          
-
-            return degrees * Math.PI / 180;
+            return degrees * (Math.PI / 180d);
         }
         public double getDistance(double dlugoscZgloszenie , double szerokoscZgloszenie , double dlugoscFirma, double szerokoscFirma)
         {
@@ -122,7 +123,7 @@ namespace SZMALAPP.Controllers
             double dSzerokosc = degreesToRadians(szerokoscFirma - szerokoscZgloszenie );
             double dDlugosc  = degreesToRadians( dlugoscFirma - dlugoscZgloszenie);
             double a = Math.Sin(dSzerokosc / 2) * Math.Sin(dSzerokosc / 2) + Math.Cos(degreesToRadians(szerokoscZgloszenie)) *
-                Math.Cos(degreesToRadians(szerokoscZgloszenie)) * Math.Sin(dDlugosc / 2) * Math.Sin(dDlugosc / 2);
+                Math.Cos(degreesToRadians(szerokoscFirma)) * Math.Sin(dDlugosc / 2) * Math.Sin(dDlugosc / 2);
 
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
             distance = R * c;
@@ -137,9 +138,11 @@ namespace SZMALAPP.Controllers
             double dlugoscZgloszenie = 0, szerokoscZgloszenie = 0;
             NumberFormatInfo provider = new NumberFormatInfo();
             provider.NumberDecimalSeparator = ".";
-            using (szmalDBEvents db = new szmalDBEvents())
+            zgloszenie objZgloszenie = null;
+            szmalDBEvents db = new szmalDBEvents();
             {
-                var obj = db.zgloszenies.First(a => a.dlugosc.Equals(ev.dlugosc));
+                objZgloszenie = db.zgloszenies.First(a => a.dlugosc.Equals(ev.dlugosc));
+           
                 typ_zgloszenia = ev.typ_zgloszenia;
                 try
                 {
@@ -150,31 +153,23 @@ namespace SZMALAPP.Controllers
                 {
                     Debug.Write(e.Message);
                 }
-                if(obj!=null)
-                {
-                    html = RenderRazorViewToString(path, obj);
-                }
-                else
-                {
-                    ;
-                }
-
             }
-            using (szmalDBOrganizations db = new szmalDBOrganizations())
+            IEnumerable<instytucja> obj=null;
+            szmalDBOrganizations db1 = new szmalDBOrganizations();
             {
                 try
                 {
-                    var obj = db.instytucjas.Select(b => b).Where(c => c.działalnosc.Equals(typ_zgloszenia)).
-                        Min(a => getDistance(dlugoscZgloszenie, szerokoscZgloszenie, Convert.ToDouble(a.dlugosc, provider), Convert.ToDouble(a.szerokosc, provider)));
+                     obj = (db1.instytucjas.Select(b => b).Where(c => c.działalnosc.Equals(typ_zgloszenia))).
+                        AsEnumerable().OrderBy(a => getDistance(dlugoscZgloszenie, szerokoscZgloszenie, Convert.ToDouble(a.dlugosc, provider), Convert.ToDouble(a.szerokosc, provider)));
+                    
                 }
                 catch (Exception e)
                 {
                     Debug.Write(e.Message);
                 }
-                    //var obj = db.instytucja.First(a => a.id_instytucji.Equals(2));
-                
             }
-
+            if(obj!=null)
+            html = RenderRazorViewToString(path, new BigModelRaport() { instytucja= obj.First(), zgloszenie=objZgloszenie });
             var htmlToPdf = new HtmlToPdf();
             var pdf = htmlToPdf.RenderHtmlAsPdf(html);
             
@@ -183,7 +178,8 @@ namespace SZMALAPP.Controllers
             pdf.SaveAs(OutputPath);
             Email(OutputPath);
             System.Diagnostics.Process.Start(OutputPath);
-
+            db.Dispose();
+            db1.Dispose();
         }
 
 

@@ -166,19 +166,19 @@
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Views\Login\Index.cshtml" />
-    <EntityDeploy Include="Models\Event.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Event.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Event.edmx.diagram">
-      <DependentUpon>Event.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\Organization.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Organization.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\Organization.edmx.diagram">
       <DependentUpon>Organization.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Event.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Event.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Event.edmx.diagram">
+      <DependentUpon>Event.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -242,13 +242,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\RaportController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\BigModel.cs" />
+    <Compile Include="Models\BigModelRaport.cs" />
     <Compile Include="Models\Event.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -281,9 +282,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Organization.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Event.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\User.Context.cs">
       <AutoGen>True</AutoGen>

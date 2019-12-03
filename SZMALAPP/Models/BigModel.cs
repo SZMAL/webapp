@@ -7,7 +7,7 @@ namespace SZMALAPP.Models
 {
     public class BigModel
     {
-        public EventToShowModel EventToShowModel { get; set; }
+        public IEnumerable<zgloszenie> EventToShowModel { get; set; }
         public UserLoginModel UserLoginModel { get; set; }
     }
 }
