@@ -106,7 +106,7 @@ namespace SZMALAPP.Controllers
                 var file = Convert.ToBase64String(bytes);
                 msg.AddAttachment("raport.pdf", file);
 
-                msg.AddTo(new EmailAddress(email, "Organizacja"));
+                msg.AddTo(new EmailAddress("chelseaman96@gmail.com", "Organizacja"));
                 var response = client.SendEmailAsync(msg);
 
                
