@@ -34,9 +34,13 @@ namespace SZMALAPP.Controllers
             return View();
         }
         // GET: Przegladaj Aktualne
-        public ActionResult Actual(uzytkownik u)
+        public ActionResult Actual( )
         {
-            return View("~/Views/Home/Actual.cshtml", u);
+            szmalDBEvents ev = new szmalDBEvents();
+            var lista = ev.zgloszenies.Select(s => s).ToList();
+            ev.Dispose();
+            return View("~/Views/Home/Actual.cshtml", lista);
+            
         }
         // GET: Dodaj
         public ActionResult Add()
@@ -77,6 +81,7 @@ namespace SZMALAPP.Controllers
         }
         public void Email(string pdf, string email)
         {
+            email = email.Replace(" ", string.Empty);
             try
             {
                 var apiKey = "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";
@@ -95,23 +100,7 @@ namespace SZMALAPP.Controllers
                 msg.AddTo(new EmailAddress(email, "Organizacja"));
                 var response = client.SendEmailAsync(msg);
 
-                /*
-                MailMessage message = new MailMessage();
-                SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("szmal.wcy@gmail.com");
-                message.To.Add(new MailAddress("chelseaman96@gmail.com"));
-                message.Subject = "Raport o zdarzeniu";
-                System.Net.Mail.Attachment attachment;
-                attachment = new System.Net.Mail.Attachment(pdf);
-                message.Attachments.Add(attachment);
-                smtp.Port = 587;
-                smtp.Host = "smtp.gmail.com"; 
-                smtp.EnableSsl = true;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("szmal.wcy@gmail.com", "ZbyszekStonoga1");
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.Send(message);
-                 */
+               
 
             }
             catch (Exception) { }

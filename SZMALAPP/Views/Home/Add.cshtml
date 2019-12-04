@@ -103,9 +103,9 @@
                 reader.onloadend = function () {
                 // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
                     document.getElementById('form-file-preview').setAttribute('src', reader.result);
-                    document.getElementById("form-file-id-preview").setAttribute('value', reader.result);
+                    document.getElementById("form-file-id-preview").setAttribute('value', input.files[0]);
                     alert(document.getElementById('form-file-id-preview').value);
-                var b64 = reader.result.replace(/^data:.+;base64,/, '');
+               
             };
             reader.readAsDataURL(file);
         };
