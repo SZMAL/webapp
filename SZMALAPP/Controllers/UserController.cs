@@ -93,7 +93,7 @@ namespace SZMALAPP.Controllers
         {
             email = email.Replace(" ", string.Empty);
             
-            var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+            var apiKey = System.Environment.GetEnvironmentVariable("APPSETTING_SENDGRID_APIKEY");
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("szmal.wcy@gmail.com", "SZMAL");
             var subject = "Raport o zdarzeniu";
