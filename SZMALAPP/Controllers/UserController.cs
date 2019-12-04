@@ -92,25 +92,32 @@ namespace SZMALAPP.Controllers
         public static async Task Email(string html, string email)
         {
             email = email.Replace(" ", string.Empty);
-            try
+            
+            var apiKey = System.Environment.GetEnvironmentVariable("API_KEY");
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("szmal.wcy@gmail.com", "SZMAL");
+            var subject = "Raport o zdarzeniu";
+            var to = new EmailAddress(email, "Organizacja");
+            var plainTextContent = html;
+            var htmlContent = html;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            /*
+            var msg = new SendGridMessage()
             {
-                var apiKey = System.Environment.GetEnvironmentVariable("API_KEY");
-                var client = new SendGridClient(apiKey);
-                var msg = new SendGridMessage()
-                {
-                    From = new EmailAddress("szmal.wcy@gmail.com", "SZMAL"),
-                    Subject = "Raport o zdarzeniu",
-                    PlainTextContent = html,
-                    HtmlContent = html
-                };
+                From = new EmailAddress("szmal.wcy@gmail.com", "SZMAL"),
+                Subject = "Raport o zdarzeniu",
+                PlainTextContent = html,
+                HtmlContent = html
+            };
+                
+            msg.AddTo(new EmailAddress(email, "Organizacja"));
+            var response = await client.SendEmailAsync(msg);
+            */
 
-                msg.AddTo(new EmailAddress(email, "Organizacja"));
-                var response = await client.SendEmailAsync(msg);
 
-               
-
-            }
-            catch (Exception) { }
+            
+            
         }
         public string RenderRazorViewToString(string viewName, object model)
         {
