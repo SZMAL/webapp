@@ -91,9 +91,11 @@ namespace SZMALAPP.Controllers
         }
         public static async Task Email(string html, string email)
         {
-            email = email.Replace(" ", string.Empty);
             
-            var apiKey = System.Environment.GetEnvironmentVariable("APPSETTING_SENDGRID_APIKEY");
+
+            email = email.Replace(" ", string.Empty);
+            StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
+            var apiKey = sr.ReadLine();
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("szmal.wcy@gmail.com", "SZMAL");
             var subject = "Raport o zdarzeniu";
@@ -102,6 +104,7 @@ namespace SZMALAPP.Controllers
             var htmlContent = html;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
+            sr.Dispose();
             /*
             var msg = new SendGridMessage()
             {
@@ -198,7 +201,7 @@ namespace SZMALAPP.Controllers
             html = RenderRazorViewToString(path, new BigModelRaport() { instytucja= obj.First(), zgloszenie=objZgloszenie });
             string sendto = obj.First().email;
             
-            Email(html, sendto).Wait();
+            Email(html, sendto);
             
             db.Dispose();
             db1.Dispose();
