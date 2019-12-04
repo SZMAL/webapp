@@ -89,7 +89,7 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
-        void Email(string html, string email)
+        public static async Task Email(string html, string email)
         {
             email = email.Replace(" ", string.Empty);
             try
@@ -105,7 +105,7 @@ namespace SZMALAPP.Controllers
                 };
 
                 msg.AddTo(new EmailAddress(email, "Organizacja"));
-                var response = client.SendEmailAsync(msg);
+                var response = await client.SendEmailAsync(msg);
 
                
 
@@ -191,7 +191,7 @@ namespace SZMALAPP.Controllers
             html = RenderRazorViewToString(path, new BigModelRaport() { instytucja= obj.First(), zgloszenie=objZgloszenie });
             string sendto = obj.First().email;
             
-            Email(html, sendto);
+            Email(html, sendto).Wait();
             
             db.Dispose();
             db1.Dispose();
