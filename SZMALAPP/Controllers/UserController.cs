@@ -31,7 +31,12 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Yours(bool success)
         {
-            return View();
+            szmalDBEvents ev = new szmalDBEvents();
+            var bigmodel = new BigModel() { EventToShowModel = ev.zgloszenies.Select(s => s), UserLoginModel = null };
+           
+            ev.Dispose();
+            
+            return View("~/Views/Home/Yours.cshtml", bigmodel);
         }
         // GET: Przegladaj Aktualne
         public ActionResult Actual( )
@@ -65,9 +70,13 @@ namespace SZMALAPP.Controllers
         }
         // GET: Przegladaj twoje
 
-        public ActionResult Yours(uzytkownik u)
+        public ActionResult Yours(BigModel u)
         {
-            return View("~/Views/Home/Yours.cshtml",u);
+            szmalDBEvents db = new szmalDBEvents();
+            UserLoginModel userLoginModel = new UserLoginModel();
+            var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
+            db.Dispose();
+            return View("~/Views/Home/Yours.cshtml", bigmodel);
         }
 
         public ActionResult Raport()

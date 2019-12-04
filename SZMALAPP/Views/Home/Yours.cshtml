@@ -1,9 +1,104 @@
-﻿@model SZMALAPP.Models.uzytkownik
+﻿@model SZMALAPP.Models.BigModel
 @{
     ViewBag.Title = "Yours";
     Layout = "~/Views/Home/_Layout.cshtml";
 
 }
+<div id="map">
 
-<h2>Yours</h2>
+
+</div>
+<script>
+            function showPosition(position) {
+
+                // Definiujemy obiekt przechowujący nasze położenie...
+                var centerLocation = { lat: position.coords.latitude, lng: position.coords.longitude };
+                // Ustawiamy punkt centralny mapy na naszą obecną lokalizację
+                var map = new google.maps.Map(
+                    document.getElementById('map'), { zoom: 13, center: centerLocation, mapTypeControl: false });
+
+                // Oznaczamy nasz punkt za pomocą markera
+                var iconBase = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
+                var obj = @Html.Raw(Json.Encode(Model.EventToShowModel.Select(a=>a).Where(b=>b.status.Equals(0))));
+
+
+                for (var i = 0; i < obj.length; i++) {
+
+                    var str = obj[i].typ_zgloszenia;
+                    str = str.replace(/\s+/g, '');
+
+                    if (str.localeCompare('Wodno-Kanalizacyjna') == 0) {
+
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(obj[i].szerokosc, obj[i].dlugosc),
+                            map: map,
+                            title: 'Zobacz szczegóły',
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+
+                        });
+                    }
+                    else if (str.localeCompare('Transportowa') == 0) {
+
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(obj[i].szerokosc, obj[i].dlugosc),
+                            map: map,
+                            title: 'Zobacz szczegóły',
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+
+                        });
+                    }
+                    else if (str.localeCompare('Energetyczna') == 0) {
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(obj[i].szerokosc, obj[i].dlugosc),
+                            map: map,
+                            title: 'Zobacz szczegóły',
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+
+                        });
+                    }
+                    else if (str.localeCompare('Inna') == 0) {
+                        var marker = new google.maps.Marker({
+                            position: new google.maps.LatLng(obj[i].szerokosc, obj[i].dlugosc),
+                            map: map,
+                            title: 'Zobacz szczegóły',
+                            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+
+                        });
+                    }
+                    // process multiple info windows
+                    (function (marker, i) {
+                        // add click event
+                        google.maps.event.addListener(marker, 'click', function () {
+
+                            infowindow = new google.maps.InfoWindow({
+                                content: obj[i].nazwa_zgloszenia,
+
+                            });
+
+                            infowindow.open(map, marker);
+                        });
+                })(marker, i);
+
+
+                }
+
+            }
+
+            function getLocation() {
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+                else {
+                    x.innerHTML = "Geolokalizacja nie jest wpierana przez przeglądarkę!";
+                }
+            }
+
+            
+
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocation">
+</script>
 
