@@ -93,7 +93,7 @@ namespace SZMALAPP.Controllers
             email = email.Replace(" ", string.Empty);
             try
             {
-                var apiKey = "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";
+                var apiKey = System.Environment.GetEnvironmentVariable("API_KEY");
                 var client = new SendGridClient(apiKey);
                 var msg = new SendGridMessage()
                 {
