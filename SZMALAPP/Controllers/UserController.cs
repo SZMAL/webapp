@@ -2,12 +2,8 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using SZMALAPP.Models;
-using System.Net.Mail;
-using IronPdf;
-using System.Net;
 using System.Diagnostics;
 using System.Globalization;
 using SendGrid;
@@ -97,14 +93,13 @@ namespace SZMALAPP.Controllers
             email = email.Replace(" ", string.Empty);
             //StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
             //var apiKey = sr.ReadLine();
-            var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
-            
+            //var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+            var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("szmal.wcy@gmail.com", "SZMAL");
             var subject = "Raport o zdarzeniu";
             var to = new EmailAddress(email, "Organizacja");
             var plainTextContent = html;
-
             var htmlContent = html;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
