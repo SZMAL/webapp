@@ -76,6 +76,11 @@ namespace SZMALAPP.Controllers
             return View("~/Views/Home/Yours.cshtml", lista);
         }
 
+        public ActionResult Map()
+        {
+            return View("~/Views/Home/Map.cshtml");
+        }
+
         public ActionResult Raport()
         {
             return View("~/Views/Raport/raport.cshtml");

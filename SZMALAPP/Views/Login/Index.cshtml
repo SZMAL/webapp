@@ -146,7 +146,7 @@
               
                 // Oznaczamy nasz punkt za pomocą markera
                 var iconBase = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/';
-                var obj = @Html.Raw(Json.Encode(Model.EventToShowModel.Select(a=>a).Where(b=>b.status.Equals(1))));
+                var obj = @Html.Raw(Json.Encode(Model.EventToShowModel.Select(a=>a).Where(b=>b.status.Equals(0))));
                 
  
                 for (var i = 0; i < obj.length; i++) {

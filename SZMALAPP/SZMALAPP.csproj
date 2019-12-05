@@ -249,6 +249,7 @@
     <None Include="Properties\PublishProfiles\szmal - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\szmal - Web Deploy1.pubxml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\Map.cshtml" />
     <None Include="Views\Raport\raport.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
