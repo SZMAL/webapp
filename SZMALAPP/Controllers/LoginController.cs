@@ -51,7 +51,7 @@ namespace SZMALAPP.Controllers
                else if (ModelState.IsValid)
                 {
                     Session["UserID"] = obj;
-                   return View("~/Views/Home/Yours.cshtml");
+                    return RedirectToAction("Yours", "User");
                 }
             
             return View(this);

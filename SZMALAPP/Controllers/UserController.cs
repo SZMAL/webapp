@@ -17,6 +17,9 @@ namespace SZMALAPP.Controllers
         // GET: Home
         public ActionResult Index()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -26,12 +29,18 @@ namespace SZMALAPP.Controllers
         // GET: O nas
         public ActionResult About(uzytkownik u)
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/About.cshtml", u);
         }
 
         // GET: Przegladaj Aktualne
         public ActionResult Actual()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -43,12 +52,18 @@ namespace SZMALAPP.Controllers
         // GET: Dodaj
         public ActionResult Add()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/Add.cshtml");
         }
 
         // GET: Przegladaj poczekalnia
         public ActionResult Pending()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -57,25 +72,38 @@ namespace SZMALAPP.Controllers
         // GET: Statystyki serwisu
         public ActionResult ServiceStats(uzytkownik u)
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/ServiceStats.cshtml", u);
         }
         // GET: Ustawienia
         public ActionResult Settings(UserLoginModel u)
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/Settings.cshtml", u);
         }
         // GET: Przegladaj twoje
 
         public ActionResult Yours()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
-            var lista = ev.zgloszenies.Select(s => s).ToList();
+            var user = Session["UserID"].ToString().Replace(" ", "");
+            var lista = ev.zgloszenies.Select(s => s).Where(t => t.fk_login.Replace(" ", "").StartsWith(user)).ToList();
             ev.Dispose();
             return View("~/Views/Home/Yours.cshtml", lista);
         }
 
         public ActionResult Map()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents db = new szmalDBEvents();
             UserLoginModel userLoginModel = new UserLoginModel();
             var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
@@ -86,11 +114,17 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Raport()
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Raport/raport.cshtml");
         }
         // GET: Statystyki twoje
         public ActionResult YoursStats(uzytkownik u)
         {
+
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
         public static async Task Email(string html, string email)
@@ -217,7 +251,8 @@ namespace SZMALAPP.Controllers
 
         public ActionResult NewWindow(string html)
         {
-            return Content("<script>window.open('{url}','_blank')</script>"+html);
+            return Content(" <a href = \"http://szmal.azurewebsites.net/User/Yours\" > Powrót </a> <script>window.open('{url}','_blank')</script>"+html
+                );
         }
 
         //POST: Add
@@ -227,6 +262,9 @@ namespace SZMALAPP.Controllers
             
             using (szmalDBEvents events = new szmalDBEvents())
             {
+
+                if (!Logged())
+                    return RedirectToAction("Index", "Login");
                 try
                 {
 
@@ -241,8 +279,8 @@ namespace SZMALAPP.Controllers
                    
                     events.zgloszenies.Add(ev);
                     events.SaveChanges();
-                    
-                    NewWindow(CreatePdf(ev));
+
+                    return NewWindow(CreatePdf(ev));
                 }
                 catch (Exception e)
                 {
@@ -250,10 +288,12 @@ namespace SZMALAPP.Controllers
                 }
             }
 
-            szmalDBEvents eve = new szmalDBEvents();
-            var lista = eve.zgloszenies.Select(s => s).ToList();
-            eve.Dispose();
-            return View("~/Views/Home/Yours.cshtml", lista);
+       
+        }
+
+        public bool Logged()
+        {
+            return Session["UserID"] != null;
         }
 
         public ActionResult Logout()

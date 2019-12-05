@@ -15,11 +15,11 @@
         <div class="left-box-view">
             <!-- Tu będą generowane boxy z kolejnymi zgłoszeniami bez szczegółów-->
 
-            @foreach (var zgl in Model.Select(s => s).Where(t => t.fk_login.Replace(" ", "") == user))
+            @foreach (var zgl in Model.Select(s => s))
             {
                 <div class="left-box-item" id="item_@index" onclick="loadEventInfo(this.id)" )>
 
-                    <input id="hiddenJson_@index" type="hidden" value='@Html.Raw(Json.Encode(Model.Select(s => s).Where(t => t.fk_login.Replace(" ", "") == user).ElementAt(index)))'>
+                    <input id="hiddenJson_@index" type="hidden" value='@Html.Raw(Json.Encode(Model.Select(s => s).ElementAt(index)))'>
                     @{
                         index++;
                     }
