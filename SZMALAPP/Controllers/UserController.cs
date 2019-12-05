@@ -94,7 +94,7 @@ namespace SZMALAPP.Controllers
             
 
             email = email.Replace(" ", string.Empty);
-            StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
+            //StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
             var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
             //var apiKey = sr.ReadLine();
             var client = new SendGridClient(apiKey);
