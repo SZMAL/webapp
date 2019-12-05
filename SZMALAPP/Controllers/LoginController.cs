@@ -21,6 +21,11 @@ namespace SZMALAPP.Controllers
         {
             szmalDBEvents db = new szmalDBEvents();
             UserLoginModel userLoginModel = new UserLoginModel();
+
+            if (Session["UserID"] != null)
+                return RedirectToAction("Yours", "User");
+
+
             var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
             
             return View("Index",bigmodel);
@@ -78,7 +83,7 @@ namespace SZMALAPP.Controllers
                         szmalDBEvents ev = new szmalDBEvents();
                         var lista = ev.zgloszenies.Select(s => s).ToList();
                         ev.Dispose();
-                        return View("~/Views/Home/Yours.cshtml", lista);
+                        return RedirectToAction("Yours", "User");
                         //return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.UserLoginModel.Login));
                     }
                     else

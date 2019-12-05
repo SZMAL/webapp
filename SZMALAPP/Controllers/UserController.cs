@@ -241,5 +241,13 @@ namespace SZMALAPP.Controllers
             eve.Dispose();
             return View("~/Views/Home/Yours.cshtml", lista);
         }
+
+        public ActionResult Logout()
+        {
+            Session["UserID"] = null;
+
+            return RedirectToAction("Index", "Login");
+        }
+
     }
 }
