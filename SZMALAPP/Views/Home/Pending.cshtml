@@ -32,13 +32,31 @@
                         Typ: @zgl.typ_zgloszenia
                     </div>
                     <div class="left-box-item-date-start">
-                        Od: @zgl.data_rozpoczecia
+                        Od: @zgl.data_rozpoczecia.ToShortDateString()
                     </div>
                     <div class="left-box-item-date-end">
-                        Do: @zgl.data_zakonczenia
+                        Do: @zgl.data_zakonczenia.ToShortDateString()
+                    </div>
+                    <div class="accept-button">
+                        @{
+                            if ((Session["UserID"] as SZMALAPP.Models.uzytkownik).fk_id_instytucji == 11)
+                            {
+                                using (Html.BeginForm("Accept", "User", FormMethod.Post))
+                                {
+
+
+                                    <button type="submit" name="id" value="@zgl.id_zgloszenia" class="acceptButton">Zatwierdź zgłoszenie</button>
+                                }
+                                using (Html.BeginForm("Decline", "User", FormMethod.Post))
+                                {
+                                    <button type="submit" name="id" value="@zgl.id_zgloszenia" class="acceptButton">Odrzuć zgłoszenie</button>
+                                }
+                            }
+                        }
                     </div>
                 </div>
             }
+           
 
         </div>
         <div class="right-box-view">

@@ -79,9 +79,10 @@ namespace SZMALAPP.Controllers
                 {
                     if (db.uzytkowniks.Any(u => u.login == user.UserLoginModel.Login && u.haslo == user.UserLoginModel.Password))
                     {
-                        Session["UserID"] = user.UserLoginModel.Login.ToString();
+                        Session["UserID"] = (db.uzytkowniks.First(s => s.login == user.UserLoginModel.Login));
                         szmalDBEvents ev = new szmalDBEvents();
                         var lista = ev.zgloszenies.Select(s => s).ToList();
+                       
                         ev.Dispose();
                         return RedirectToAction("Yours", "User");
                         //return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.UserLoginModel.Login));
@@ -89,10 +90,14 @@ namespace SZMALAPP.Controllers
                     else
                     {
                         ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
-
-                        var view = View("~/Views/Index.cshtml", user);
+                        szmalDBEvents ev = new szmalDBEvents();
+                        var lista = ev.zgloszenies.Select(s => s).ToList();
+                        user.EventToShowModel = lista;
+                        ev.Dispose();
+                        var view = View("~/Views/Login/Index.cshtml", user);
                         view.ViewData.ModelState.AddModelError("Login", "Niepoprawny login lub hasło");
-                        return PartialView("Index", user);
+                        return view;
+
                     }
                 }
 

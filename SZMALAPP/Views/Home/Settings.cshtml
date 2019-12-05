@@ -1,4 +1,4 @@
-﻿@model SZMALAPP.Models.uzytkownik
+﻿@model SZMALAPP.Models.UserLoginModel
 @{
     ViewBag.Title = "Settings";
     Layout = "~/Views/Home/_Layout.cshtml";
@@ -29,12 +29,10 @@
         {
             <br /><br />
             <h2 style="text-align: center;">Zmiana hasła</h2>
-            <label class="edit-label" for="user-password">Aktuane hasło</label>
-            <input class="form-edit" type="password" id="user-password" /><br />
             <label class="edit-label" for="user-newpassword">Nowe hasło</label>
-            <input class="form-edit" type="password" id="user-newpassword" /><br />
+            @Html.TextBoxFor(a => a.Password, new { @class = "form-edit", type = "password", @id = "user-newpassword" })<br />
             <label class="edit-label" for="user-newpassword-again">Nowe hasło ponownie</label>
-            <input class="form-edit" type="password" id="user-newpassword-again" />
+            @Html.TextBoxFor(a => a.ConfirmPassword, new { @class = "form-edit", type = "password", @id = "user-newpassword-again" })<br />
             <div style="text-align: center;">
                 <input style="text-align: center;" type="submit" value="Zapisz haslo" class="form-submit-class" />
             </div>

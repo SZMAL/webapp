@@ -24,5 +24,10 @@ namespace SZMALAPP.Models
         public string haslo { get; set; }
         public Nullable<decimal> liczba_punktow { get; set; }
         public Nullable<int> fk_id_instytucji { get; set; }
+
+        public override string ToString()
+        {
+            return login;
+        }
     }
 }
