@@ -17,6 +17,8 @@ namespace SZMALAPP.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -26,12 +28,16 @@ namespace SZMALAPP.Controllers
         // GET: O nas
         public ActionResult About(uzytkownik u)
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/About.cshtml", u);
         }
 
         // GET: Przegladaj Aktualne
         public ActionResult Actual()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -43,12 +49,16 @@ namespace SZMALAPP.Controllers
         // GET: Dodaj
         public ActionResult Add()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/Add.cshtml");
         }
 
         // GET: Przegladaj poczekalnia
         public ActionResult Pending()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -57,17 +67,23 @@ namespace SZMALAPP.Controllers
         // GET: Statystyki serwisu
         public ActionResult ServiceStats(uzytkownik u)
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/ServiceStats.cshtml", u);
         }
         // GET: Ustawienia
         public ActionResult Settings(uzytkownik u)
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/Settings.cshtml", u);
         }
         // GET: Przegladaj twoje
 
         public ActionResult Yours()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -76,6 +92,8 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Map()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             szmalDBEvents db = new szmalDBEvents();
             UserLoginModel userLoginModel = new UserLoginModel();
             var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
@@ -86,11 +104,15 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Raport()
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Raport/raport.cshtml");
         }
         // GET: Statystyki twoje
         public ActionResult YoursStats(uzytkownik u)
         {
+            if (!Logged())
+                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
         public static async Task Email(string html, string email)
@@ -218,7 +240,8 @@ namespace SZMALAPP.Controllers
         [HttpPost]
         public ActionResult AddEvent(zgloszenie ev)
         {
-            
+            if(!Logged())
+                return RedirectToAction("Index", "Login");
             using (szmalDBEvents events = new szmalDBEvents())
             {
                 try
@@ -254,6 +277,13 @@ namespace SZMALAPP.Controllers
             Session["UserID"] = null;
 
             return RedirectToAction("Index", "Login");
+        }
+
+        private bool Logged()
+        {
+            if (Session["UserID"] == null)
+                return false;
+            return true;
         }
 
     }
