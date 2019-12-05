@@ -94,8 +94,9 @@ namespace SZMALAPP.Controllers
             
 
             email = email.Replace(" ", string.Empty);
-            StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
-            var apiKey = sr.ReadLine();
+            //StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
+            //var apiKey = sr.ReadLine();
+            var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("szmal.wcy@gmail.com", "SZMAL");
             var subject = "Raport o zdarzeniu";
@@ -104,7 +105,7 @@ namespace SZMALAPP.Controllers
             var htmlContent = html;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
-            sr.Dispose();
+            //sr.Dispose();
             /*
             var msg = new SendGridMessage()
             {
