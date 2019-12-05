@@ -17,8 +17,6 @@ namespace SZMALAPP.Controllers
         // GET: Home
         public ActionResult Index()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -28,16 +26,12 @@ namespace SZMALAPP.Controllers
         // GET: O nas
         public ActionResult About(uzytkownik u)
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/About.cshtml", u);
         }
 
         // GET: Przegladaj Aktualne
         public ActionResult Actual()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -49,16 +43,12 @@ namespace SZMALAPP.Controllers
         // GET: Dodaj
         public ActionResult Add()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/Add.cshtml");
         }
 
         // GET: Przegladaj poczekalnia
         public ActionResult Pending()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -67,23 +57,17 @@ namespace SZMALAPP.Controllers
         // GET: Statystyki serwisu
         public ActionResult ServiceStats(uzytkownik u)
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/ServiceStats.cshtml", u);
         }
         // GET: Ustawienia
-        public ActionResult Settings(uzytkownik u)
+        public ActionResult Settings(UserLoginModel u)
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/Settings.cshtml", u);
         }
         // GET: Przegladaj twoje
 
         public ActionResult Yours()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
             ev.Dispose();
@@ -92,8 +76,6 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Map()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             szmalDBEvents db = new szmalDBEvents();
             UserLoginModel userLoginModel = new UserLoginModel();
             var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
@@ -104,15 +86,11 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Raport()
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             return View("~/Views/Raport/raport.cshtml");
         }
         // GET: Statystyki twoje
         public ActionResult YoursStats(uzytkownik u)
         {
-            if (!Logged())
-                return RedirectToAction("Index", "Login");
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
         public static async Task Email(string html, string email)
@@ -187,7 +165,7 @@ namespace SZMALAPP.Controllers
             
             return distance;
         }
-         void CreatePdf(zgloszenie ev)
+         string CreatePdf(zgloszenie ev)
         {
             string path = "~/Views/Raport/raport.cshtml";
             string html = "";
@@ -227,21 +205,26 @@ namespace SZMALAPP.Controllers
             }
             if(obj!=null)
             html = RenderRazorViewToString(path, new BigModelRaport() { instytucja= obj.First(), zgloszenie=objZgloszenie });
-            string sendto = obj.First().email;
             
-            Email(html, sendto);
+            //string sendto = obj.First().email;
+            
+           // Email(html, sendto);
             
             db.Dispose();
             db1.Dispose();
+            return html;
         }
 
+        public ActionResult NewWindow(string html)
+        {
+            return Content("<script>window.open('{url}','_blank')</script>"+html);
+        }
 
         //POST: Add
         [HttpPost]
         public ActionResult AddEvent(zgloszenie ev)
         {
-            if(!Logged())
-                return RedirectToAction("Index", "Login");
+            
             using (szmalDBEvents events = new szmalDBEvents())
             {
                 try
@@ -253,12 +236,13 @@ namespace SZMALAPP.Controllers
                         ev.image = binaryReader.ReadBytes((int)Request.Files[0].InputStream.Length );
                         binaryReader.Dispose();
                     }
-                    ev.fk_login = ((string)Session["UserID"]);
+                    ev.fk_login = (Session["UserID"].ToString());
                     ev.status = 0;
                    
                     events.zgloszenies.Add(ev);
                     events.SaveChanges();
-                    CreatePdf(ev);
+                    
+                    NewWindow(CreatePdf(ev));
                 }
                 catch (Exception e)
                 {
@@ -279,11 +263,37 @@ namespace SZMALAPP.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        private bool Logged()
+        public ActionResult EditUser()
         {
-            if (Session["UserID"] == null)
-                return false;
-            return true;
+            return null;
+        }
+
+        public ActionResult EditPassword()
+        {
+            return null;
+        }
+        [HttpPost]
+        public ActionResult Accept()
+        {
+            szmalDBEvents db = new szmalDBEvents();
+
+            int id = int.Parse(Request.Params[0]);
+            var zgl = db.zgloszenies.First(s => s.id_zgloszenia == id );
+            zgl.status = 1;
+            db.SaveChanges();
+             return RedirectToAction("Pending", "User");
+        }
+
+        [HttpPost]
+        public ActionResult Decline()
+        {
+            szmalDBEvents db = new szmalDBEvents();
+
+            int id = int.Parse(Request.Params[0]);
+            var zgl = db.zgloszenies.First(s => s.id_zgloszenia == id);
+            zgl.status = 2;
+            db.SaveChanges();
+            return RedirectToAction("Pending", "User");
         }
 
     }

@@ -23,5 +23,10 @@ namespace SZMALAPP.Models
         [DataType(DataType.EmailAddress,ErrorMessage ="Adres E-Mail nie jest poprawny")]
         public string Email { get; set; }
 
+        public string imie { get; set; }
+        public string nazwisko { get; set; }
+        public Nullable<System.DateTime> dataUrodzenia { get; set; }
+        public string telefon { get; set; }
+
     }
 }

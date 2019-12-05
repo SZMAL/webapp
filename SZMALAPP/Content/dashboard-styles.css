@@ -196,10 +196,35 @@ ol {
     border-radius: 25px;
 }
 
+.edit-form {
+    margin-left: 25%;
+    height: 100%;
+    width: 50%;
+    text-align: left;
+    font-size: 24px;
+    background-color: #9a9a9a;
+    padding: 20px;
+    border-radius: 25px;
+}
+
+.edit-label {
+    font-size: 24px;
+}
+
 .form-title {
     width: 800px;
     height: 50px;
     font-size: 32px;
+    text-align: center;
+    color: black;
+    margin: 10px;
+    border-radius: 25px;
+}
+
+.form-edit {
+    width: 600px;
+    height: 40px;
+    font-size: 26px;
     text-align: center;
     color: black;
     margin: 10px;

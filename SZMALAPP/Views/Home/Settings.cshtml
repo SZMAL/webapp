@@ -1,4 +1,4 @@
-﻿
+﻿@model SZMALAPP.Models.UserLoginModel
 @{
     ViewBag.Title = "Settings";
     Layout = "~/Views/Home/_Layout.cshtml";
@@ -8,5 +8,34 @@
     <div class="content-title">
         Ustawienia profilu
     </div>
+    <div class="edit-form">
+        @using (Html.BeginForm("EditUser", "User", FormMethod.Post))
+        {
+            <label class="edit-label" for="user-name">Imie</label>
+            @Html.TextBoxFor(a => a.imie, new { @class = "form-edit", @id = "user-name" })<br />
+            <label class="edit-label" for="user-surname">Nazwisko</label>
+            @Html.TextBoxFor(a => a.nazwisko, new { @class = "form-edit", @id = "user-surname" })<br />
+            <label class="edit-label" for="user-bday">Data Urodzenia</label>
+            @Html.TextBoxFor(a => a.dataUrodzenia, new { @class = "form-edit", @id = "user-bday", type = "date" })<br />
+            <label class="edit-label" for="user-phone">Numer Telefonu</label>
+            @Html.TextBoxFor(a => a.telefon, new { @class = "form-edit", @id = "user-phone" })<br />
+            <div style="text-align: center;">
+                <input style="text-align: center;" type="submit" value="Zapisz" class="form-submit-class" />
+            </div>
 
+        }
+
+        @using (Html.BeginForm("EditPassword", "User", FormMethod.Post))
+        {
+            <br /><br />
+            <h2 style="text-align: center;">Zmiana hasła</h2>
+            <label class="edit-label" for="user-newpassword">Nowe hasło</label>
+            @Html.TextBoxFor(a => a.Password, new { @class = "form-edit", type = "password", @id = "user-newpassword" })<br />
+            <label class="edit-label" for="user-newpassword-again">Nowe hasło ponownie</label>
+            @Html.TextBoxFor(a => a.ConfirmPassword, new { @class = "form-edit", type = "password", @id = "user-newpassword-again" })<br />
+            <div style="text-align: center;">
+                <input style="text-align: center;" type="submit" value="Zapisz haslo" class="form-submit-class" />
+            </div>
+        }
+    </div>
 </div>
