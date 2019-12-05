@@ -16,12 +16,6 @@
             @foreach (var zgl in Model.Select(s => s).Where(t => t.status == 0))
             {
 
-                if (!zgl.status.Equals(0))
-                {
-                    index++;
-                    continue;
-                }
-
                 <div class="left-box-item" id="item_@index" onclick="loadEventInfo(this.id)" )>
 
                     <input id="hiddenJson_@index" type="hidden" value='@Html.Raw(Json.Encode(Model.Select(s => s).Where(t => t.status == 0).ElementAt(index)))'>
