@@ -104,6 +104,7 @@ namespace SZMALAPP.Controllers
             var subject = "Raport o zdarzeniu";
             var to = new EmailAddress(email, "Organizacja");
             var plainTextContent = html;
+
             var htmlContent = html;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
             var response = await client.SendEmailAsync(msg);
