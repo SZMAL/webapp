@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Globalization;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using System.Threading.Tasks;
 
 namespace SZMALAPP.Controllers
 {
@@ -84,33 +85,41 @@ namespace SZMALAPP.Controllers
         {
             return View("~/Views/Home/YoursStats.cshtml", u);
         }
-        public void Email(string pdf, string email)
+        public static async Task Email(string html, string email)
         {
+            
+
             email = email.Replace(" ", string.Empty);
-            try
+            //StreamReader sr = new StreamReader("D:\\home\\klucz.txt");
+            //var apiKey = sr.ReadLine();
+            var apiKey = System.Environment.GetEnvironmentVariable("SENDGRID_APIKEY");
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress("szmal.wcy@gmail.com", "SZMAL");
+            var subject = "Raport o zdarzeniu";
+            var to = new EmailAddress(email, "Organizacja");
+            var plainTextContent = html;
+            var htmlContent = html;
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+            var response = await client.SendEmailAsync(msg);
+            //sr.Dispose();
+            /*
+            var msg = new SendGridMessage()
             {
-                var apiKey = "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";
-                var client = new SendGridClient(apiKey);
-                var msg = new SendGridMessage()
-                {
-                    From = new EmailAddress("szmal.wcy@gmail.com", "SZMAL"),
-                    Subject = "Raport o zdarzeniu",
-                    PlainTextContent = "Przesłano raport o zdarzeniu, pozdrawiamy Zespół SZMAL",
-                    HtmlContent = "<strong>Przesłano raport o zdarzeniu, <br>pozdrawiamy Zespół SZMAL<strong>"
-                };
-                var bytes = System.IO.File.ReadAllBytes(pdf);
-                var file = Convert.ToBase64String(bytes);
-                msg.AddAttachment("raport.pdf", file);
+                From = new EmailAddress("szmal.wcy@gmail.com", "SZMAL"),
+                Subject = "Raport o zdarzeniu",
+                PlainTextContent = html,
+                HtmlContent = html
+            };
+                
+            msg.AddTo(new EmailAddress(email, "Organizacja"));
+            var response = await client.SendEmailAsync(msg);
+            */
 
-                msg.AddTo(new EmailAddress(email, "Organizacja"));
-                var response = client.SendEmailAsync(msg);
 
-               
-
-            }
-            catch (Exception) { }
+            
+            
         }
-        public  string RenderRazorViewToString(string viewName, object model)
+        public string RenderRazorViewToString(string viewName, object model)
         {
             ViewData.Model = model;
             using (var sw = new StringWriter())
@@ -188,14 +197,9 @@ namespace SZMALAPP.Controllers
             if(obj!=null)
             html = RenderRazorViewToString(path, new BigModelRaport() { instytucja= obj.First(), zgloszenie=objZgloszenie });
             string sendto = obj.First().email;
-            var htmlToPdf = new HtmlToPdf();
-            var pdf = htmlToPdf.RenderHtmlAsPdf(html);
             
-            var OutputPath =Environment.GetFolderPath( Environment.SpecialFolder.LocalApplicationData)+"/raport.pdf";
-
-            pdf.SaveAs(OutputPath);
-            Email(OutputPath, sendto);
-            System.Diagnostics.Process.Start(OutputPath);
+            Email(html, sendto);
+            
             db.Dispose();
             db1.Dispose();
         }
