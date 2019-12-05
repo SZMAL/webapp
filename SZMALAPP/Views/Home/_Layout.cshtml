@@ -19,11 +19,11 @@
     <div class="wrapper">
         <div class="header">
             <div class="company-name">
-                @Html.ActionLink("SZMAL", "Actual", "User", null, new { @style="text-decoration: none; color: white;"})
+                @Html.ActionLink("SZMAL", "Index", "Login", null, new { @style="text-decoration: none; color: white;"})
             </div>
             <div class="welcome-your-name">
                 Witaj @Session["UserID"].ToString()
-                @Html.ActionLink("(Wyloguj)", "Logout", "User", null, new { @style="color: #ff6a00; text-decoration: none;"})
+                @Html.ActionLink("(Wyloguj)", "Logout", "User", null, new { @style = "color: #ff6a00; text-decoration: none;" })
             </div>
             <div style="clear: both;"></div>
         </div>
