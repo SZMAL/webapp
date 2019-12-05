@@ -38,6 +38,8 @@ namespace SZMALAPP.Controllers
             return View("~/Views/Home/Actual.cshtml", lista);
             
         }
+        
+        
         // GET: Dodaj
         public ActionResult Add()
         {
@@ -74,7 +76,12 @@ namespace SZMALAPP.Controllers
 
         public ActionResult Map()
         {
-            return View("~/Views/Home/Map.cshtml");
+            szmalDBEvents db = new szmalDBEvents();
+            UserLoginModel userLoginModel = new UserLoginModel();
+            var bigmodel = new BigModel() { EventToShowModel = db.zgloszenies.Select(s => s), UserLoginModel = null };
+
+            return View("~/Views/Home/Map.cshtml", bigmodel);
+            
         }
 
         public ActionResult Raport()
