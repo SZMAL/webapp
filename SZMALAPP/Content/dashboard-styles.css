@@ -475,21 +475,13 @@ ol {
 }
 
 .right-box-image {
-    width: 40%;
     float: left;
-    margin-right: 4%;
-}
-
-.right-box-image-class {
+    margin-left: 5%;
+    margin-right: 5%;
     width: 90%;
-    border-radius: 25px;
+    text-align: center;
 }
 
-#right-box-map {
-    color: black;
-    float: left;
-    width: 56%;
-    background-color: white;
-    height: 350px;
+.right-box-image-class {    
     border-radius: 25px;
 }

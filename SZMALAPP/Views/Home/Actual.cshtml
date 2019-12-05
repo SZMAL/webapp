@@ -13,16 +13,15 @@
         <div class="left-box-view">
             <!-- Tu będą generowane boxy z kolejnymi zgłoszeniami bez szczegółów-->
 
-            @foreach (var zgl in Model)
+            @foreach (var zgl in Model.Select(s=>s).Where(t=>t.status==1))
             {
-                <div class="left-box-item" id="item_@index">
-                    <script>
-                        var costan = document.getElementById("item_@index");
-                        costan.onclick = function () {
 
-                        };
-                    </script>
+                <div class="left-box-item" id="item_@index" onclick="loadEventInfo(this.id)" )>
 
+                    <input id="hiddenJson_@index" type="hidden" value='@Html.Raw(Json.Encode(Model.Select(s=>s).Where(t=>t.status==1).ElementAt(index)))'>
+                    @{ 
+                        index++;
+                    }
                     <div class="left-box-item-title">
                         @zgl.nazwa_zgloszenia
                     </div>
@@ -39,45 +38,32 @@
                         Do: @zgl.data_zakonczenia
                     </div>
                 </div>
-                @index++
             }
 
         </div>
         <div class="right-box-view">
             <!-- Tu będą generowane szczegóły zgłoszenia wybranego z lewego boxa-->
-            <div class="right-box-title">
-                Tytul zgloszenia
+            <div class="right-box-title" id="right-box-title-id">
+                Usterka kanalizacji
             </div>
-            <div class="right-box-by">
-                Dodano przez: User
+            <div class="right-box-by" id="right-box-by-id">
+                Dodano przez: krul
             </div>
-            <div class="right-box-type">
-                Typ: Wodno-Kanalizacyjne
+            <div class="right-box-type" id="right-box-typ-id">
+                Typ: Transportowe
             </div>
-            <div class="right-box-date-start">
-                Od: 12-10-2019
+            <div class="right-box-date-start" id="right-box-date-start-id">
+                Od: 24-11-2019
             </div>
-            <div class="right-box-date-end">
-                Do: 14-10-2019
+            <div class="right-box-date-end" id="right-box-date-end-id">
+                Do: 30-11-2019
             </div>
-            <div class="right-box-description">
-                Opis zgloszenia. <br />Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
-                Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis... Opis opis opis...
+            <div class="right-box-description" id="right-box-description-id">
+                <b>Opis zgloszenia</b> <br />
+                Naprawa kanalizacji
             </div>
             <div class="right-box-image">
-                <img class="right-box-image-class" src="https://image.spreadshirtmedia.net/image-server/v1/mp/compositions/T812A2PA3811PT17X20Y40D149382933FS3233/views/1,width=378,height=378,appearanceId=2,backgroundColor=000000,noPt=true,version=1565684945/wciaez-testowy-ekran-testowy-obrazu-testowego-premium-koszulka-meska.jpg" />
-            </div>
-            <div id="right-box-map">
-
+                <img alt="brak obrazka" id="right-box-image-id" class="right-box-image-class" src="https://image.spreadshirtmedia.net/image-server/v1/mp/compositions/T812A2PA3811PT17X20Y40D149382933FS3233/views/1,width=378,height=378,appearanceId=2,backgroundColor=000000,noPt=true,version=1565684945/wciaez-testowy-ekran-testowy-obrazu-testowego-premium-koszulka-meska.jpg" />
             </div>
             <div style="clear: both; display: none"></div>
         </div>
@@ -86,6 +72,35 @@
     <script>
         window.onload = getLocationForEvent();
     </script>
+    <script>
+        function loadEventInfo(divId) {       
+            var eventId = divId.substring(divId.indexOf('_') + 1);
+            var eventIdString = "hiddenJson_" + eventId;
+            var json = document.getElementById(eventIdString).value;
+            var obj = JSON.parse(json);
+            document.getElementById("right-box-title-id").textContent = obj["nazwa_zgloszenia"];
+            document.getElementById("right-box-by-id").textContent = "Dodano przez: " + obj["fk_login"];
+            document.getElementById("right-box-typ-id").textContent = "Typ: " + obj["typ_zgloszenia"];
+            var dataR = obj["data_rozpoczecia"];
+            var dataRms = dataR.substring(dataR.indexOf('(') + 1, dataR.indexOf(')'));
+            var dr = new Date(parseInt(dataRms));
+            var fdataR = dr.getDate() + "-" + (dr.getMonth() + 1) + "-" + dr.getFullYear();
+
+            var dataZ = obj["data_zakonczenia"];
+            var dataZms = dataZ.substring(dataZ.indexOf('(') + 1, dataZ.indexOf(')'));
+            var dz = new Date(parseInt(dataZms));
+            var fdataZ = dz.getDate() + "-" + (dz.getMonth() + 1) + "-" + dz.getFullYear();
+            document.getElementById("right-box-date-start-id").textContent = "Od: " + fdataR;
+            document.getElementById("right-box-date-end-id").textContent = "Do: " + fdataZ;
+            document.getElementById("right-box-description-id").innerHTML = "<b>Opis zgloszenia.</b> <br />" + obj["opis"];
+            var a = obj["image"];
+            var ba = new Uint8Array(a);
+            var base64String = btoa(String.fromCharCode.apply(null, ba));
+            document.getElementById("right-box-image-id").src = "data:image/png;base64," + base64String;
+        }
+        window.onloadend(loadEventInfo("div_0"));
+    </script>
+
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocationForEvent">
     </script>

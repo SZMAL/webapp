@@ -107,3 +107,5 @@ function showEventOnMap() {
     //!!!!!BARTEK!!! Tutaj potrzebuje szerokosci i d³ugosci danego zdarzenia
     var eventPosition = new google.maps.LatLng(52.242399, 20.874975);
 }
+
+

@@ -1,8 +1,113 @@
-﻿
+﻿@model IEnumerable<SZMALAPP.Models.zgloszenie>
 @{
     ViewBag.Title = "Pending";
     Layout = "~/Views/Home/_Layout.cshtml";
+    int index = 0;
 }
 
-<h2>Pending</h2>
+<div class="main-container">
+    <div class="content-title">
+       Poczekalnia
+    </div>
+    <div class="box-wrapper">
+        <div class="left-box-view">
+            <!-- Tu będą generowane boxy z kolejnymi zgłoszeniami bez szczegółów-->
 
+            @foreach (var zgl in Model.Select(s => s).Where(t => t.status == 0))
+            {
+
+                if (!zgl.status.Equals(0))
+                {
+                    index++;
+                    continue;
+                }
+
+                <div class="left-box-item" id="item_@index" onclick="loadEventInfo(this.id)" )>
+
+                    <input id="hiddenJson_@index" type="hidden" value='@Html.Raw(Json.Encode(Model.Select(s => s).Where(t => t.status == 0).ElementAt(index)))'>
+                    @{
+                        index++;
+                    }
+                    <div class="left-box-item-title">
+                        @zgl.nazwa_zgloszenia
+                    </div>
+                    <div class="left-box-item-by">
+                        Dodane przez: @zgl.fk_login
+                    </div>
+                    <div class="left-box-item-type">
+                        Typ: @zgl.typ_zgloszenia
+                    </div>
+                    <div class="left-box-item-date-start">
+                        Od: @zgl.data_rozpoczecia
+                    </div>
+                    <div class="left-box-item-date-end">
+                        Do: @zgl.data_zakonczenia
+                    </div>
+                </div>
+            }
+
+        </div>
+        <div class="right-box-view">
+            <!-- Tu będą generowane szczegóły zgłoszenia wybranego z lewego boxa-->
+            <div class="right-box-title" id="right-box-title-id">
+                Usterka kanalizacji
+            </div>
+            <div class="right-box-by" id="right-box-by-id">
+                Dodano przez: krul
+            </div>
+            <div class="right-box-type" id="right-box-typ-id">
+                Typ: Transportowe
+            </div>
+            <div class="right-box-date-start" id="right-box-date-start-id">
+                Od: 24-11-2019
+            </div>
+            <div class="right-box-date-end" id="right-box-date-end-id">
+                Do: 30-11-2019
+            </div>
+            <div class="right-box-description" id="right-box-description-id">
+                <b>Opis zgloszenia</b> <br />
+                Naprawa kanalizacji
+            </div>
+            <div class="right-box-image">
+                <img alt="brak obrazka" id="right-box-image-id" class="right-box-image-class" src="https://image.spreadshirtmedia.net/image-server/v1/mp/compositions/T812A2PA3811PT17X20Y40D149382933FS3233/views/1,width=378,height=378,appearanceId=2,backgroundColor=000000,noPt=true,version=1565684945/wciaez-testowy-ekran-testowy-obrazu-testowego-premium-koszulka-meska.jpg" />
+            </div>
+            <div style="clear: both; display: none"></div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <script>
+        window.onload = getLocationForEvent();
+    </script>
+    <script>
+        function loadEventInfo(divId) {
+            var eventId = divId.substring(divId.indexOf('_') + 1);
+            var eventIdString = "hiddenJson_" + eventId;
+            var json = document.getElementById(eventIdString).value;
+            var obj = JSON.parse(json);
+            document.getElementById("right-box-title-id").textContent = obj["nazwa_zgloszenia"];
+            document.getElementById("right-box-by-id").textContent = "Dodano przez: " + obj["fk_login"];
+            document.getElementById("right-box-typ-id").textContent = "Typ: " + obj["typ_zgloszenia"];
+            var dataR = obj["data_rozpoczecia"];
+            var dataRms = dataR.substring(dataR.indexOf('(') + 1, dataR.indexOf(')'));
+            var dr = new Date(parseInt(dataRms));
+            var fdataR = dr.getDate() + "-" + (dr.getMonth() + 1) + "-" + dr.getFullYear();
+
+            var dataZ = obj["data_zakonczenia"];
+            var dataZms = dataZ.substring(dataZ.indexOf('(') + 1, dataZ.indexOf(')'));
+            var dz = new Date(parseInt(dataZms));
+            var fdataZ = dz.getDate() + "-" + (dz.getMonth() + 1) + "-" + dz.getFullYear();
+            document.getElementById("right-box-date-start-id").textContent = "Od: " + fdataR;
+            document.getElementById("right-box-date-end-id").textContent = "Do: " + fdataZ;
+            document.getElementById("right-box-description-id").innerHTML = "<b>Opis zgloszenia.</b> <br />" + obj["opis"];
+            var a = obj["image"];
+            var ba = new Uint8Array(a);
+            var base64String = btoa(String.fromCharCode.apply(null, ba));
+            document.getElementById("right-box-image-id").src = "data:image/png;base64," + base64String;
+        }
+        window.onloadend(loadEventInfo("div_0"));
+    </script>
+
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHwdYW-xzRa23-EuuiaKSqcoy2x7Lspwo&callback=getLocationForEvent">
+    </script>
+</div>

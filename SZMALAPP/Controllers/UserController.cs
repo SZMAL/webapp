@@ -18,9 +18,12 @@ namespace SZMALAPP.Controllers
     public class UserController : Controller
     {
         // GET: Home
-        public ActionResult Index(uzytkownik u)
+        public ActionResult Index()
         {
-            return View("~/Views/Home/Actual.cshtml", u);
+            szmalDBEvents ev = new szmalDBEvents();
+            var lista = ev.zgloszenies.Select(s => s).ToList();
+            ev.Dispose();
+            return View("~/Views/Home/Actual.cshtml", lista);
         }
         
         // GET: O nas
@@ -29,12 +32,8 @@ namespace SZMALAPP.Controllers
             return View("~/Views/Home/About.cshtml", u);
         }
 
-        public ActionResult Yours(bool success)
-        {
-            return View();
-        }
         // GET: Przegladaj Aktualne
-        public ActionResult Actual( )
+        public ActionResult Actual()
         {
             szmalDBEvents ev = new szmalDBEvents();
             var lista = ev.zgloszenies.Select(s => s).ToList();
@@ -49,9 +48,12 @@ namespace SZMALAPP.Controllers
         }
 
         // GET: Przegladaj poczekalnia
-        public ActionResult Pending(uzytkownik u)
+        public ActionResult Pending()
         {
-            return View("~/Views/Home/Pending.cshtml", u);
+            szmalDBEvents ev = new szmalDBEvents();
+            var lista = ev.zgloszenies.Select(s => s).ToList();
+            ev.Dispose();
+            return View("~/Views/Home/Pending.cshtml", lista);
         }
         // GET: Statystyki serwisu
         public ActionResult ServiceStats(uzytkownik u)
@@ -65,9 +67,12 @@ namespace SZMALAPP.Controllers
         }
         // GET: Przegladaj twoje
 
-        public ActionResult Yours(uzytkownik u)
+        public ActionResult Yours()
         {
-            return View("~/Views/Home/Yours.cshtml",u);
+            szmalDBEvents ev = new szmalDBEvents();
+            var lista = ev.zgloszenies.Select(s => s).ToList();
+            ev.Dispose();
+            return View("~/Views/Home/Yours.cshtml", lista);
         }
 
         public ActionResult Raport()
@@ -205,7 +210,13 @@ namespace SZMALAPP.Controllers
             {
                 try
                 {
-                    
+
+                    if (Request.Files.Count > 0)
+                    {
+                        var binaryReader = new BinaryReader(Request.Files[0].InputStream);
+                        ev.image = binaryReader.ReadBytes((int)Request.Files[0].InputStream.Length );
+                        binaryReader.Dispose();
+                    }
                     ev.fk_login = ((string)Session["UserID"]);
                     ev.status = 0;
                    
@@ -218,9 +229,11 @@ namespace SZMALAPP.Controllers
                     return View("~/Views/Home/Error.cshtml", e.Message);
                 }
             }
-           
 
-            return View("~/Views/Home/Yours.cshtml", true);
+            szmalDBEvents eve = new szmalDBEvents();
+            var lista = eve.zgloszenies.Select(s => s).ToList();
+            eve.Dispose();
+            return View("~/Views/Home/Yours.cshtml", lista);
         }
     }
 }

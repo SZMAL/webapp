@@ -46,7 +46,7 @@ namespace SZMALAPP.Controllers
                else if (ModelState.IsValid)
                 {
                     Session["UserID"] = obj;
-                   return View("~/Views/Home/Yours.cshtml", obj);
+                   return View("~/Views/Home/Yours.cshtml");
                 }
             
             return View(this);
@@ -75,7 +75,11 @@ namespace SZMALAPP.Controllers
                     if (db.uzytkowniks.Any(u => u.login == user.UserLoginModel.Login && u.haslo == user.UserLoginModel.Password))
                     {
                         Session["UserID"] = user.UserLoginModel.Login.ToString();
-                        return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.UserLoginModel.Login));
+                        szmalDBEvents ev = new szmalDBEvents();
+                        var lista = ev.zgloszenies.Select(s => s).ToList();
+                        ev.Dispose();
+                        return View("~/Views/Home/Yours.cshtml", lista);
+                        //return View("~/Views/Home/Yours.cshtml", db.uzytkowniks.FirstOrDefault(u => u.login == user.UserLoginModel.Login));
                     }
                     else
                     {
